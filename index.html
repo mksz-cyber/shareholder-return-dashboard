@@ -82,9 +82,12 @@
   /* ---- diverging bar chart ---- */
   .hc { margin-top: 14px; }
   .hc-scale { display: flex; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
-  .hc-scale .s-left  { flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right; }
-  .hc-scale .s-mid   { flex: 1 1 auto; display: flex; justify-content: space-between; }
-  .hc-scale .s-right { flex: 0 0 92px;  width: 92px;  padding-left: 14px; text-align: left; }
+  .hc-scale .s-left  { flex: 0 0 118px; width: 118px; }
+  .hc-scale .s-mid   { flex: 1 1 auto; position: relative; height: 14px; }
+  .hc-scale .s-right { flex: 0 0 92px;  width: 92px;  }
+  .hc-scale .t-min   { position: absolute; left: 0; top: 0; }
+  .hc-scale .t-zero  { position: absolute; left: 50%; top: 0; transform: translateX(-50%); }
+  .hc-scale .t-max   { position: absolute; right: 0; top: 0; }
   .hc-row { display: flex; align-items: center; height: 31px; }
   .hc-label {
     flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right;
@@ -247,7 +250,7 @@
   }
   function fmtBn(v) {
     if (v === null || v === undefined) return 'n/m';
-    return String(Number(v.toFixed(3))) + 'bn';
+    return String(Number(v.toFixed(1))) + 'bn';
   }
   function niceMax(m) {
     m = Math.max(m, 1);
@@ -274,9 +277,9 @@
     var html = '';
     // scale header (min / 0 / max)
     html += '<div class="hc-scale">' +
-      '<span class="s-left">' + (-scaleMax) + '%</span>' +
-      '<span class="s-mid"><span>0%</span><span></span><span></span></span>' +
-      '<span class="s-right">+' + scaleMax + '%</span>' +
+      '<span class="s-left"></span>' +
+      '<span class="s-mid"><span class="t-min">' + (-scaleMax) + '%</span><span class="t-zero">0%</span><span class="t-max">+' + scaleMax + '%</span></span>' +
+      '<span class="s-right"></span>' +
       '</div>';
 
     rows.forEach(function (r) {
@@ -289,7 +292,7 @@
         var side = v > 0 ? 'pos' : 'neg';
         bar = '<span class="hc-bar ' + side + '" style="width:' + w.toFixed(3) + '%"></span>';
       }
-      var tip = r.label + ' · 2Q26 $' + fmtBn(r.cur) + 'bn ' + periodLabel + ' $' + fmtBn(r.prior) + 'bn';
+      var tip = r.label + ' · 2Q26 $' + fmtBn(r.cur) + ' ' + periodLabel + ' $' + fmtBn(r.prior);
       html += '<div class="hc-row" title="' + esc(tip) + '">' +
         '<span class="hc-label">' + esc(r.label) + '</span>' +
         '<span class="hc-track">' + bar + '</span>' +

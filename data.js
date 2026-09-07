@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-07T11:02:32+08:00",
+  "generatedAt": "2026-09-07T11:20:38+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -108,7 +108,7 @@ window.GP_DATA = {
       "bb_q1_prior": 0.0
     },
     {
-      "label": "Broadcom",
+      "label": "Broadcom*",
       "yoy": 9.1,
       "qoq": -16.0,
       "q2": 3.103,
@@ -223,7 +223,7 @@ window.GP_DATA = {
     "Meta"
   ],
   "footnotes": [
-    "Broadcom fiscal year differs (Feb–Jan); 2Q 2026 = FQ3 FY2026.",
+    "* Broadcom fiscal year differs (Feb–Jan); 2Q 2026 = FQ3 FY2026.",
     "n/m = not meaningful (prior-period value is zero)."
   ]
 };
