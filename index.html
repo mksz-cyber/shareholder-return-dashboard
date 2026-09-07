@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Global Peers · Shareholder Return — Q2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --border: #e7e9ee;
+    --text: #16181d;
+    --muted: #6b7280;
+    --up: #e5484d;      /* gain = red (CN convention) */
+    --down: #159a57;    /* loss = green (CN convention) */
+    --na: #b6bcc4;
+    --accent: #2563eb;
+    --chip-bg: #eef2ff;
+    --chip-text: #3b5bdb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 72px; }
+
+  header { margin-bottom: 28px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 0 rgba(229,72,77,.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(229,72,77,.45)} 70%{box-shadow:0 0 0 8px rgba(229,72,77,0)} 100%{box-shadow:0 0 0 0 rgba(229,72,77,0)} }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+  .subtitle { color: var(--muted); font-size: 15px; margin-top: 6px; max-width: 720px; }
+  .meta {
+    display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap;
+    font-size: 13px; color: var(--muted);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 12px; font-weight: 500; color: var(--text);
+  }
+  .refresh {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border); background: var(--card); color: var(--text);
+    border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .refresh:hover { border-color: var(--accent); color: var(--accent); }
+  .refresh svg { width: 14px; height: 14px; }
+
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 860px) { .charts { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 22px 18px;
+    box-shadow: 0 1px 2px rgba(16,24,40,.04);
+  }
+  .card h2 { font-size: 15px; font-weight: 700; }
+  .card .hint { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .chart-box { position: relative; height: 440px; margin-top: 12px; }
+  .legend { display: flex; gap: 18px; margin-top: 12px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  .section-title { margin: 44px 0 18px; }
+  .section-title h2 { font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
+  .section-title p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+
+  .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
+  .quote {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px 22px; position: relative;
+  }
+  .quote::before {
+    content: "“"; position: absolute; top: 8px; left: 16px;
+    font-size: 52px; line-height: 1; color: var(--border); font-weight: 800;
+    font-family: Georgia, serif;
+  }
+  .quote .who { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; padding-left: 26px; }
+  .quote .who .name { font-weight: 700; font-size: 14.5px; }
+  .chip {
+    font-size: 11px; font-weight: 700; letter-spacing: .05em;
+    background: var(--chip-bg); color: var(--chip-text);
+    padding: 2px 8px; border-radius: 6px;
+  }
+  .quote p { font-size: 14px; color: #34383f; padding-left: 26px; }
+
+  .none-note {
+    margin-top: 18px; background: #fbfbfc; border: 1px dashed var(--border);
+    border-radius: 14px; padding: 14px 20px; font-size: 13.5px; color: var(--muted);
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .none-note b { color: var(--text); font-weight: 600; }
+
+  footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer .foot { margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><span class="dot"></span> Live · Updated quarterly</div>
+    <h1 id="title">Global Peers — Shareholder Return</h1>
+    <p class="subtitle" id="subtitle">Year-over-year and quarter-over-quarter change in total shareholder return (dividends + repurchases), USD bn, across global internet peers.</p>
+    <div class="meta">
+      <span class="badge" id="quarterBadge">—</span>
+      <span class="badge" id="updatedBadge">—</span>
+      <button class="refresh" onclick="location.reload()" title="Refresh data">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  <div class="charts">
+    <div class="card">
+      <h2>YoY change — 2Q 2026 vs 2Q 2025</h2>
+      <div class="hint">Total shareholder return, % year over year</div>
+      <div class="chart-box"><canvas id="yoyChart"></canvas></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
+        <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>QoQ change — 2Q 2026 vs 1Q 2026</h2>
+      <div class="hint">Total shareholder return, % quarter over quarter</div>
+      <div class="chart-box"><canvas id="qoqChart"></canvas></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
+        <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Management commentary on shareholder returns</h2>
+    <p id="commentarySub">This quarter's remarks from management on capital return.</p>
+  </div>
+  <div class="quotes" id="quotes"></div>
+  <div class="none-note" id="noneNote"></div>
+
+  <footer>
+    <div>Data: Global Peers Shareholding Returns Comparison — “Qtrly SH return change”. Total shareholder return = dividends + repurchases (cash-flow basis, USD bn).</div>
+    <div class="foot" id="footnotes"></div>
+    <div class="foot">Auto-refreshes on each re-run of the daily peer-update pipeline. <span id="genAt"></span></div>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  var D = window.GP_DATA;
+  if (!D) { document.body.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280">Failed to load data.js — please regenerate via export_web_json.py.</p>'; return; }
+
+  // --- header
+  document.getElementById('quarterBadge').textContent = D.quarterLabel;
+  document.getElementById('updatedBadge').textContent = 'Updated ' + (D.generatedAt || '—').replace('T', ' ').slice(0, 16);
+  document.getElementById('genAt').textContent = 'Data generated ' + D.generatedAt + '.';
+
+  var RED = getComputedStyle(document.documentElement).getPropertyValue('--up').trim() || '#e5484d';
+  var GREEN = getComputedStyle(document.documentElement).getPropertyValue('--down').trim() || '#159a57';
+
+  function pctTxt(v) {
+    if (v === null || v === undefined) return 'n/m';
+    return (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+  }
+
+  // custom inline plugin: draw value label at bar end
+  var valueLabels = {
+    id: 'valueLabels',
+    afterDatasetsDraw: function (chart) {
+      var ctx = chart.ctx;
+      var xScale = chart.scales.x;
+      chart.data.datasets.forEach(function (ds, di) {
+        var meta = chart.getDatasetMeta(di);
+        meta.data.forEach(function (bar, i) {
+          var v = ds.data[i];
+          if (v === null || v === undefined) return;
+          var px = xScale.getPixelForValue(v);
+          var y = bar.y + bar.height / 2;
+          var col = v >= 0 ? RED : GREEN;
+          ctx.save();
+          ctx.font = '600 12px Inter, sans-serif';
+          ctx.textAlign = v >= 0 ? 'left' : 'right';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = col;
+          var pad = v >= 0 ? 7 : -7;
+          ctx.fillText(pctTxt(v), px + pad, y);
+          ctx.restore();
+        });
+      });
+    }
+  };
+
+  function barChart(id, key, priorKey) {
+    // exclude nulls, sort desc
+    var rows = D.companies.filter(function (c) { return c[key] !== null && c[key] !== undefined; })
+      .slice().sort(function (a, b) { return b[key] - a[key]; });
+    var labels = rows.map(function (c) { return c.label; });
+    var data = rows.map(function (c) { return c[key]; });
+    var colors = data.map(function (v) { return v >= 0 ? RED : GREEN; });
+
+    var el = document.getElementById(id);
+    var tooltipTitle = key === 'yoy' ? 'vs 2Q 2025' : 'vs 1Q 2026';
+    return new Chart(el, {
+      type: 'bar',
+      data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderRadius: 5, barThickness: 18 }] },
+      options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: function (items) { return items[0].label; },
+              label: function (item) {
+                var c = rows[item.dataIndex];
+                var cur = c.q2, prior = priorKey === 'q2_prior' ? c.q2_prior : c.q1_prior;
+                return '2Q26 $' + fmt(cur) + 'bn  ' + tooltipTitle + ' $' + fmt(prior) + 'bn  (' + pctTxt(item.raw) + ')';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#eef0f4' },
+            border: { display: false },
+            ticks: { callback: function (v) { return v + '%'; }, font: { size: 11 }, color: '#6b7280' }
+          },
+          y: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 12, weight: '600' }, color: '#34383f' } }
+        }
+      },
+      plugins: [valueLabels]
+    });
+  }
+
+  function fmt(v) { return v === null || v === undefined ? 'n/m' : (Math.round(v * 100) / 100).toString(); }
+
+  barChart('yoyChart', 'yoy', 'q2_prior');
+  barChart('qoqChart', 'qoq', 'q1_prior');
+
+  // --- commentary
+  var qBox = document.getElementById('quotes');
+  D.commentary.forEach(function (c) {
+    var div = document.createElement('div');
+    div.className = 'quote';
+    var who = document.createElement('div');
+    who.className = 'who';
+    who.innerHTML = '<span class="name">' + esc(c.name) + '</span><span class="chip">' + esc(c.ticker) + '</span>';
+    var p = document.createElement('p');
+    p.textContent = c.text;
+    div.appendChild(who); div.appendChild(p);
+    qBox.appendChild(div);
+  });
+
+  var none = document.getElementById('noneNote');
+  if (D.noCommentary && D.noCommentary.length) {
+    none.innerHTML = '<b>No specific commentary from other firms:</b> ' + D.noCommentary.map(esc).join(' · ');
+  } else {
+    none.style.display = 'none';
+  }
+
+  var foot = document.getElementById('footnotes');
+  if (D.footnotes && D.footnotes.length) {
+    foot.innerHTML = D.footnotes.map(esc).join('<br>');
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+
+  // gentle auto-refresh (data updates daily via the pipeline)
+  setTimeout(function () { location.reload(); }, 30 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
