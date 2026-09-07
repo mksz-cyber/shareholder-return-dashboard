@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #f5f6f8;
@@ -15,6 +14,7 @@
     --border: #e7e9ee;
     --text: #16181d;
     --muted: #6b7280;
+    --axis: #dfe3ea;
     --up: #e5484d;      /* gain = red (CN convention) */
     --down: #159a57;    /* loss = green (CN convention) */
     --na: #b6bcc4;
@@ -32,7 +32,7 @@
   }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 72px; }
 
-  header { margin-bottom: 28px; }
+  header { margin-bottom: 30px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 12px; font-weight: 600; letter-spacing: .08em;
@@ -41,7 +41,7 @@
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 0 rgba(229,72,77,.5); animation: pulse 2s infinite; }
   @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(229,72,77,.45)} 70%{box-shadow:0 0 0 8px rgba(229,72,77,0)} 100%{box-shadow:0 0 0 0 rgba(229,72,77,0)} }
   h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
-  .subtitle { color: var(--muted); font-size: 15px; margin-top: 6px; max-width: 720px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin-top: 6px; max-width: 760px; }
   .meta {
     display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap;
     font-size: 13px; color: var(--muted);
@@ -60,24 +60,49 @@
   .refresh:hover { border-color: var(--accent); color: var(--accent); }
   .refresh svg { width: 14px; height: 14px; }
 
+  .section-title { margin: 46px 0 18px; }
+  .section-title .eyebrow { margin-bottom: 6px; }
+  .section-title h2 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
+  .section-title p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+
   .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 860px) { .charts { grid-template-columns: 1fr; } }
 
   .card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 22px 22px 18px;
+    border-radius: 16px; padding: 20px 22px 16px;
     box-shadow: 0 1px 2px rgba(16,24,40,.04);
   }
-  .card h2 { font-size: 15px; font-weight: 700; }
-  .card .hint { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
-  .chart-box { position: relative; height: 440px; margin-top: 12px; }
-  .legend { display: flex; gap: 18px; margin-top: 12px; font-size: 12px; color: var(--muted); }
+  .card h3 { font-size: 15px; font-weight: 700; }
+  .card .hint { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .legend { display: flex; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
   .swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 
-  .section-title { margin: 44px 0 18px; }
-  .section-title h2 { font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
-  .section-title p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+  /* ---- diverging bar chart ---- */
+  .hc { margin-top: 14px; }
+  .hc-scale { display: flex; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .hc-scale .s-left  { flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right; }
+  .hc-scale .s-mid   { flex: 1 1 auto; display: flex; justify-content: space-between; }
+  .hc-scale .s-right { flex: 0 0 92px;  width: 92px;  padding-left: 14px; text-align: left; }
+  .hc-row { display: flex; align-items: center; height: 31px; }
+  .hc-label {
+    flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right;
+    font-size: 13px; font-weight: 600; color: #3a3f47;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .hc-track { flex: 1 1 auto; position: relative; height: 100%; }
+  .hc-track::before { content: ""; position: absolute; left: 50%; top: -6px; bottom: -6px; width: 1px; background: var(--axis); transform: translateX(-50%); }
+  .hc-bar { position: absolute; top: 50%; transform: translateY(-50%); height: 16px; border-radius: 4px; }
+  .hc-bar.pos { left: 50%; background: var(--up); }
+  .hc-bar.neg { right: 50%; background: var(--down); }
+  .hc-val {
+    flex: 0 0 92px; width: 92px; padding-left: 14px; text-align: left;
+    font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .hc-val.pos { color: var(--up); }
+  .hc-val.neg { color: var(--down); }
+  .hc-val.na  { color: var(--na); font-weight: 500; }
 
   .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
@@ -86,7 +111,7 @@
     padding: 20px 22px; position: relative;
   }
   .quote::before {
-    content: "“"; position: absolute; top: 8px; left: 16px;
+    content: "\201C"; position: absolute; top: 8px; left: 16px;
     font-size: 52px; line-height: 1; color: var(--border); font-weight: 800;
     font-family: Georgia, serif;
   }
@@ -116,7 +141,7 @@
   <header>
     <div class="eyebrow"><span class="dot"></span> Live · Updated quarterly</div>
     <h1 id="title">Global Peers — Shareholder Return</h1>
-    <p class="subtitle" id="subtitle">Year-over-year and quarter-over-quarter change in total shareholder return (dividends + repurchases), USD bn, across global internet peers.</p>
+    <p class="subtitle" id="subtitle">Year-over-year and quarter-over-quarter change in shareholder return (USD bn) across global internet peers — split between total return and share repurchases.</p>
     <div class="meta">
       <span class="badge" id="quarterBadge">—</span>
       <span class="badge" id="updatedBadge">—</span>
@@ -127,20 +152,25 @@
     </div>
   </header>
 
+  <div class="section-title">
+    <div class="eyebrow">Total shareholder return</div>
+    <h2>Dividends + repurchases</h2>
+    <p>Change in combined capital return, % versus the comparable prior period.</p>
+  </div>
   <div class="charts">
     <div class="card">
-      <h2>YoY change — 2Q 2026 vs 2Q 2025</h2>
+      <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
       <div class="hint">Total shareholder return, % year over year</div>
-      <div class="chart-box"><canvas id="yoyChart"></canvas></div>
+      <div class="hc" data-metric="yoy" data-cur="q2" data-prior="q2_prior" data-period="vs 2Q 2025"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
       </div>
     </div>
     <div class="card">
-      <h2>QoQ change — 2Q 2026 vs 1Q 2026</h2>
+      <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
       <div class="hint">Total shareholder return, % quarter over quarter</div>
-      <div class="chart-box"><canvas id="qoqChart"></canvas></div>
+      <div class="hc" data-metric="qoq" data-cur="q2" data-prior="q1_prior" data-period="vs 1Q 2026"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -149,6 +179,33 @@
   </div>
 
   <div class="section-title">
+    <div class="eyebrow">Share repurchases</div>
+    <h2>Buybacks only</h2>
+    <p>Change in share repurchases, % versus the comparable prior period.</p>
+  </div>
+  <div class="charts">
+    <div class="card">
+      <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
+      <div class="hint">Share repurchases, % year over year</div>
+      <div class="hc" data-metric="bb_yoy" data-cur="bb_q2" data-prior="bb_q2_prior" data-period="vs 2Q 2025"></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
+        <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
+      <div class="hint">Share repurchases, % quarter over quarter</div>
+      <div class="hc" data-metric="bb_qoq" data-cur="bb_q2" data-prior="bb_q1_prior" data-period="vs 1Q 2026"></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
+        <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <div class="eyebrow">Commentary</div>
     <h2>Management commentary on shareholder returns</h2>
     <p id="commentarySub">This quarter's remarks from management on capital return.</p>
   </div>
@@ -156,7 +213,7 @@
   <div class="none-note" id="noneNote"></div>
 
   <footer>
-    <div>Data: Global Peers Shareholding Returns Comparison — “Qtrly SH return change”. Total shareholder return = dividends + repurchases (cash-flow basis, USD bn).</div>
+    <div>Data: Global Peers Shareholding Returns Comparison — “Qtrly SH return change”. Total shareholder return = dividends + repurchases; repurchases = buybacks only (cash-flow basis, USD bn).</div>
     <div class="foot" id="footnotes"></div>
     <div class="foot">Auto-refreshes on each re-run of the daily peer-update pipeline. <span id="genAt"></span></div>
   </footer>
@@ -168,92 +225,86 @@
   var D = window.GP_DATA;
   if (!D) { document.body.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280">Failed to load data.js — please regenerate via export_web_json.py.</p>'; return; }
 
+  var cs = getComputedStyle(document.documentElement);
+  var RED = cs.getPropertyValue('--up').trim() || '#e5484d';
+  var GREEN = cs.getPropertyValue('--down').trim() || '#159a57';
+
   // --- header
   document.getElementById('quarterBadge').textContent = D.quarterLabel;
   document.getElementById('updatedBadge').textContent = 'Updated ' + (D.generatedAt || '—').replace('T', ' ').slice(0, 16);
   document.getElementById('genAt').textContent = 'Data generated ' + D.generatedAt + '.';
 
-  var RED = getComputedStyle(document.documentElement).getPropertyValue('--up').trim() || '#e5484d';
-  var GREEN = getComputedStyle(document.documentElement).getPropertyValue('--down').trim() || '#159a57';
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
 
   function pctTxt(v) {
-    if (v === null || v === undefined) return 'n/m';
+    if (v === null || v === undefined) return '—';
+    if (v === 0) return '0.0%';
     return (v > 0 ? '+' : '') + v.toFixed(1) + '%';
   }
-
-  // custom inline plugin: draw value label at bar end
-  var valueLabels = {
-    id: 'valueLabels',
-    afterDatasetsDraw: function (chart) {
-      var ctx = chart.ctx;
-      var xScale = chart.scales.x;
-      chart.data.datasets.forEach(function (ds, di) {
-        var meta = chart.getDatasetMeta(di);
-        meta.data.forEach(function (bar, i) {
-          var v = ds.data[i];
-          if (v === null || v === undefined) return;
-          var px = xScale.getPixelForValue(v);
-          var y = bar.y + bar.height / 2;
-          var col = v >= 0 ? RED : GREEN;
-          ctx.save();
-          ctx.font = '600 12px Inter, sans-serif';
-          ctx.textAlign = v >= 0 ? 'left' : 'right';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = col;
-          var pad = v >= 0 ? 7 : -7;
-          ctx.fillText(pctTxt(v), px + pad, y);
-          ctx.restore();
-        });
-      });
-    }
-  };
-
-  function barChart(id, key, priorKey) {
-    // exclude nulls, sort desc
-    var rows = D.companies.filter(function (c) { return c[key] !== null && c[key] !== undefined; })
-      .slice().sort(function (a, b) { return b[key] - a[key]; });
-    var labels = rows.map(function (c) { return c.label; });
-    var data = rows.map(function (c) { return c[key]; });
-    var colors = data.map(function (v) { return v >= 0 ? RED : GREEN; });
-
-    var el = document.getElementById(id);
-    var tooltipTitle = key === 'yoy' ? 'vs 2Q 2025' : 'vs 1Q 2026';
-    return new Chart(el, {
-      type: 'bar',
-      data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderRadius: 5, barThickness: 18 }] },
-      options: {
-        indexAxis: 'y',
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              title: function (items) { return items[0].label; },
-              label: function (item) {
-                var c = rows[item.dataIndex];
-                var cur = c.q2, prior = priorKey === 'q2_prior' ? c.q2_prior : c.q1_prior;
-                return '2Q26 $' + fmt(cur) + 'bn  ' + tooltipTitle + ' $' + fmt(prior) + 'bn  (' + pctTxt(item.raw) + ')';
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { color: '#eef0f4' },
-            border: { display: false },
-            ticks: { callback: function (v) { return v + '%'; }, font: { size: 11 }, color: '#6b7280' }
-          },
-          y: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 12, weight: '600' }, color: '#34383f' } }
-        }
-      },
-      plugins: [valueLabels]
-    });
+  function signClass(v) {
+    if (v === null || v === undefined || v === 0) return 'na';
+    return v > 0 ? 'pos' : 'neg';
+  }
+  function fmtBn(v) {
+    if (v === null || v === undefined) return 'n/m';
+    return String(Number(v.toFixed(3))) + 'bn';
+  }
+  function niceMax(m) {
+    m = Math.max(m, 1);
+    return Math.ceil(m / 50) * 50;
   }
 
-  function fmt(v) { return v === null || v === undefined ? 'n/m' : (Math.round(v * 100) / 100).toString(); }
+  // render a diverging bar chart into a container
+  function renderHChart(container, metricKey, curKey, priorKey, periodLabel) {
+    var rows = D.companies.map(function (c) {
+      return { label: c.label, v: c[metricKey], cur: c[curKey], prior: c[priorKey] };
+    });
+    rows.sort(function (a, b) {
+      var an = (a.v === null || a.v === undefined), bn = (b.v === null || b.v === undefined);
+      if (an && bn) return a.label < b.label ? -1 : 1;
+      if (an) return 1;
+      if (bn) return -1;
+      return b.v - a.v;
+    });
 
-  barChart('yoyChart', 'yoy', 'q2_prior');
-  barChart('qoqChart', 'qoq', 'q1_prior');
+    var nums = rows.filter(function (r) { return r.v !== null && r.v !== undefined; }).map(function (r) { return Math.abs(r.v); });
+    var maxAbs = nums.length ? Math.max.apply(null, nums) : 0;
+    var scaleMax = niceMax(maxAbs);
+
+    var html = '';
+    // scale header (min / 0 / max)
+    html += '<div class="hc-scale">' +
+      '<span class="s-left">' + (-scaleMax) + '%</span>' +
+      '<span class="s-mid"><span>0%</span><span></span><span></span></span>' +
+      '<span class="s-right">+' + scaleMax + '%</span>' +
+      '</div>';
+
+    rows.forEach(function (r) {
+      var v = r.v;
+      var isNa = (v === null || v === undefined);
+      var cls = signClass(v);
+      var bar = '';
+      if (!isNa && v !== 0) {
+        var w = (Math.abs(v) / scaleMax) * 50;   // % of track width
+        var side = v > 0 ? 'pos' : 'neg';
+        bar = '<span class="hc-bar ' + side + '" style="width:' + w.toFixed(3) + '%"></span>';
+      }
+      var tip = r.label + ' · 2Q26 $' + fmtBn(r.cur) + 'bn ' + periodLabel + ' $' + fmtBn(r.prior) + 'bn';
+      html += '<div class="hc-row" title="' + esc(tip) + '">' +
+        '<span class="hc-label">' + esc(r.label) + '</span>' +
+        '<span class="hc-track">' + bar + '</span>' +
+        '<span class="hc-val ' + cls + '">' + pctTxt(v) + '</span>' +
+        '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  var els = document.querySelectorAll('.hc[data-metric]');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    renderHChart(el, el.getAttribute('data-metric'), el.getAttribute('data-cur'), el.getAttribute('data-prior'), el.getAttribute('data-period'));
+  }
 
   // --- commentary
   var qBox = document.getElementById('quotes');
@@ -280,8 +331,6 @@
   if (D.footnotes && D.footnotes.length) {
     foot.innerHTML = D.footnotes.map(esc).join('<br>');
   }
-
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
 
   // gentle auto-refresh (data updates daily via the pipeline)
   setTimeout(function () { location.reload(); }, 30 * 60 * 1000);
