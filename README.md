@@ -32,12 +32,20 @@ The page also auto-reloads every 30 minutes and offers a manual **Refresh** butt
 |------|---------|
 | `index.html` | Page (static; reads `data.js`) |
 | `data.js` | Generated data + commentary (`window.GP_DATA`) — do not hand-edit |
-| `export_web_json.py` | Local generator (lives beside the workbook, not in this repo) |
+| `export_web_json.py` | Local generator (lives beside the workbook, NOT in this repo) |
 
 ## Editing commentary
 
 Edit the `COMMENTARY` list in `export_web_json.py` (one entry per firm) and re-run it.
 Grammar-light edits are applied there; quotes preserve management's intent verbatim.
 
-> Note: `data.js` lives at the repo root here, but `export_web_json.py` writes it into
-> the local `web/` folder. Copy/commit `web/data.js` → repo `data.js` when pushing.
+## Refresh workflow (this `web/` folder is the git repo)
+
+```bash
+cd <workspace>
+python export_web_json.py                 # regenerates web/data.js from WIP.xlsx
+cd web && git add data.js && git commit -m "refresh Q3 2026" && git push
+```
+
+`export_web_json.py` writes directly to `web/data.js`, which is the repo's `data.js`,
+so no manual copy step is needed.
