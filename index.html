@@ -257,6 +257,24 @@
   </div>
 
   <div class="section-title">
+    <div class="eyebrow">Amounts — quarter over quarter</div>
+    <h2>Quarterly amounts — QoQ</h2>
+    <p>Shareholder return and share repurchase amounts (USD bn) for 2Q 2026 versus 1Q 2026, sorted by quarter-over-quarter change.</p>
+  </div>
+  <div class="charts">
+    <div class="card">
+      <h3>Shareholder return</h3>
+      <div class="hint">Dividends + repurchases, USD bn</div>
+      <table class="tbl" id="totalTableQoq"></table>
+    </div>
+    <div class="card">
+      <h3>Share repurchases</h3>
+      <div class="hint">Buybacks only, USD bn</div>
+      <table class="tbl" id="bbTableQoq"></table>
+    </div>
+  </div>
+
+  <div class="section-title">
     <div class="eyebrow">Commentary</div>
     <h2>Management commentary on shareholder returns</h2>
     <p id="commentarySub">This quarter's remarks from management on capital return.</p>
@@ -348,28 +366,28 @@
     container.innerHTML = html;
   }
 
-  // render an amount table (sorted by the given YoY metric)
-  function renderAmountTable(container, curKey, priorKey, yoyKey) {
+  // render an amount table (sorted by the given change metric; NA rows sink to bottom)
+  function renderAmountTable(container, curKey, priorKey, changeKey, curLabel, priorLabel, changeLabel) {
     var rows = D.companies.map(function (c) {
-      return { label: c.label, cur: c[curKey], prior: c[priorKey], yoy: c[yoyKey] };
+      return { label: c.label, cur: c[curKey], prior: c[priorKey], chg: c[changeKey] };
     });
     rows.sort(function (a, b) {
-      var an = (a.yoy === null || a.yoy === undefined), bn = (b.yoy === null || b.yoy === undefined);
+      var an = (a.chg === null || a.chg === undefined), bn = (b.chg === null || b.chg === undefined);
       if (an && bn) return a.label < b.label ? -1 : 1;
       if (an) return 1;
       if (bn) return -1;
-      return b.yoy - a.yoy;
+      return b.chg - a.chg;
     });
 
     var html = '<thead><tr>' +
-      '<th>Company</th><th class="num">2Q 2026</th><th class="num">2Q 2025</th><th class="num">YoY</th>' +
+      '<th>Company</th><th class="num">' + esc(curLabel) + '</th><th class="num">' + esc(priorLabel) + '</th><th class="num">' + esc(changeLabel) + '</th>' +
       '</tr></thead><tbody>';
     rows.forEach(function (r) {
       html += '<tr>' +
         '<td class="c">' + esc(r.label) + '</td>' +
         '<td class="num">' + amt(r.cur) + '</td>' +
         '<td class="num muted">' + amt(r.prior) + '</td>' +
-        '<td class="num ' + signClass(r.yoy) + '">' + pctTxt(r.yoy) + '</td>' +
+        '<td class="num ' + signClass(r.chg) + '">' + pctTxt(r.chg) + '</td>' +
         '</tr>';
     });
     html += '</tbody>';
@@ -382,8 +400,10 @@
     renderHChart(el, el.getAttribute('data-metric'), el.getAttribute('data-cur'), el.getAttribute('data-prior'), el.getAttribute('data-prior-label'));
   }
 
-  renderAmountTable(document.getElementById('totalTable'), 'q2', 'q2_prior', 'yoy');
-  renderAmountTable(document.getElementById('bbTable'), 'bb_q2', 'bb_q2_prior', 'bb_yoy');
+  renderAmountTable(document.getElementById('totalTable'), 'q2', 'q2_prior', 'yoy', '2Q 2026', '2Q 2025', 'YoY');
+  renderAmountTable(document.getElementById('bbTable'), 'bb_q2', 'bb_q2_prior', 'bb_yoy', '2Q 2026', '2Q 2025', 'YoY');
+  renderAmountTable(document.getElementById('totalTableQoq'), 'q2', 'q1_prior', 'qoq', '2Q 2026', '1Q 2026', 'QoQ');
+  renderAmountTable(document.getElementById('bbTableQoq'), 'bb_q2', 'bb_q1_prior', 'bb_qoq', '2Q 2026', '1Q 2026', 'QoQ');
 
   // --- hover tooltip
   var tip = document.getElementById('tip');
