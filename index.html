@@ -84,7 +84,7 @@
   .hc-scale { display: flex; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
   .hc-scale .s-left  { flex: 0 0 118px; width: 118px; }
   .hc-scale .s-mid   { flex: 1 1 auto; position: relative; height: 14px; }
-  .hc-scale .s-right { flex: 0 0 92px;  width: 92px;  }
+  .hc-scale .s-right { flex: 0 0 78px;  width: 78px;  }
   .hc-scale .t-min   { position: absolute; left: 0; top: 0; }
   .hc-scale .t-zero  { position: absolute; left: 50%; top: 0; transform: translateX(-50%); }
   .hc-scale .t-max   { position: absolute; right: 0; top: 0; }
@@ -100,12 +100,29 @@
   .hc-bar.pos { left: 50%; background: var(--up); }
   .hc-bar.neg { right: 50%; background: var(--down); }
   .hc-val {
-    flex: 0 0 92px; width: 92px; padding-left: 14px; text-align: left;
+    flex: 0 0 78px; width: 78px; padding-left: 14px; text-align: left;
     font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums;
   }
   .hc-val.pos { color: var(--up); }
   .hc-val.neg { color: var(--down); }
   .hc-val.na  { color: var(--na); font-weight: 500; }
+
+  /* ---- amount tables ---- */
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
+  .tbl thead th {
+    text-align: left; font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .04em; padding: 0 0 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tbl thead th.num { text-align: right; }
+  .tbl tbody td { padding: 7.5px 0; border-bottom: 1px solid #f1f3f6; }
+  .tbl tbody tr:last-child td { border-bottom: none; }
+  .tbl td.c { font-weight: 600; color: #3a3f47; }
+  .tbl td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .tbl td.num.muted { color: var(--muted); font-weight: 500; }
+  .tbl td.pos { color: var(--up); }
+  .tbl td.neg { color: var(--down); }
+  .tbl td.na  { color: var(--na); font-weight: 500; }
 
   .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
@@ -133,6 +150,20 @@
     display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
   }
   .none-note b { color: var(--text); font-weight: 600; }
+
+  /* ---- hover tooltip ---- */
+  .tip {
+    position: fixed; z-index: 999; pointer-events: none;
+    background: #16181d; color: #fff; border-radius: 9px;
+    padding: 9px 13px; font-size: 12.5px; line-height: 1.55;
+    box-shadow: 0 8px 24px rgba(0,0,0,.22);
+    opacity: 0; transform: translateY(5px); transition: opacity .12s ease, transform .12s ease;
+    min-width: 178px;
+  }
+  .tip.show { opacity: 1; transform: translateY(0); }
+  .tip b { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .tiprow { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; }
+  .tiprow .lbl { color: #aeb6c2; }
 
   footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
   footer a { color: var(--accent); text-decoration: none; }
@@ -164,7 +195,7 @@
     <div class="card">
       <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
       <div class="hint">Total shareholder return, % year over year</div>
-      <div class="hc" data-metric="yoy" data-cur="q2" data-prior="q2_prior" data-period="vs 2Q 2025"></div>
+      <div class="hc" data-metric="yoy" data-cur="q2" data-prior="q2_prior" data-prior-label="2Q 2025"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -173,7 +204,7 @@
     <div class="card">
       <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
       <div class="hint">Total shareholder return, % quarter over quarter</div>
-      <div class="hc" data-metric="qoq" data-cur="q2" data-prior="q1_prior" data-period="vs 1Q 2026"></div>
+      <div class="hc" data-metric="qoq" data-cur="q2" data-prior="q1_prior" data-prior-label="1Q 2026"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -190,7 +221,7 @@
     <div class="card">
       <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
       <div class="hint">Share repurchases, % year over year</div>
-      <div class="hc" data-metric="bb_yoy" data-cur="bb_q2" data-prior="bb_q2_prior" data-period="vs 2Q 2025"></div>
+      <div class="hc" data-metric="bb_yoy" data-cur="bb_q2" data-prior="bb_q2_prior" data-prior-label="2Q 2025"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -199,11 +230,29 @@
     <div class="card">
       <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
       <div class="hint">Share repurchases, % quarter over quarter</div>
-      <div class="hc" data-metric="bb_qoq" data-cur="bb_q2" data-prior="bb_q1_prior" data-period="vs 1Q 2026"></div>
+      <div class="hc" data-metric="bb_qoq" data-cur="bb_q2" data-prior="bb_q1_prior" data-prior-label="1Q 2026"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
       </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <div class="eyebrow">Amounts</div>
+    <h2>Quarterly amounts</h2>
+    <p>Shareholder return and share repurchase amounts (USD bn) for 2Q 2026 versus 2Q 2025, sorted by year-over-year change.</p>
+  </div>
+  <div class="charts">
+    <div class="card">
+      <h3>Shareholder return</h3>
+      <div class="hint">Dividends + repurchases, USD bn</div>
+      <table class="tbl" id="totalTable"></table>
+    </div>
+    <div class="card">
+      <h3>Share repurchases</h3>
+      <div class="hint">Buybacks only, USD bn</div>
+      <table class="tbl" id="bbTable"></table>
     </div>
   </div>
 
@@ -222,17 +271,14 @@
   </footer>
 </div>
 
+<div class="tip" id="tip"></div>
+
 <script src="data.js"></script>
 <script>
 (function () {
   var D = window.GP_DATA;
   if (!D) { document.body.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280">Failed to load data.js — please regenerate via export_web_json.py.</p>'; return; }
 
-  var cs = getComputedStyle(document.documentElement);
-  var RED = cs.getPropertyValue('--up').trim() || '#e5484d';
-  var GREEN = cs.getPropertyValue('--down').trim() || '#159a57';
-
-  // --- header
   document.getElementById('quarterBadge').textContent = D.quarterLabel;
   document.getElementById('updatedBadge').textContent = 'Updated ' + (D.generatedAt || '—').replace('T', ' ').slice(0, 16);
   document.getElementById('genAt').textContent = 'Data generated ' + D.generatedAt + '.';
@@ -241,41 +287,38 @@
 
   function pctTxt(v) {
     if (v === null || v === undefined) return '—';
-    if (v === 0) return '0.0%';
-    return (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+    var n = Math.round(v);
+    return (n > 0 ? '+' : '') + n + '%';
   }
   function signClass(v) {
     if (v === null || v === undefined || v === 0) return 'na';
     return v > 0 ? 'pos' : 'neg';
   }
-  function fmtBn(v) {
-    if (v === null || v === undefined) return 'n/m';
-    return String(Number(v.toFixed(1))) + 'bn';
+  function usd(v) {
+    if (v === null || v === undefined) return '—';
+    if (v === 0) return '$0.0bn';
+    var d = Math.abs(v) < 1 ? 3 : 2;
+    var n = String(Number(v.toFixed(d)));
+    return '$' + n + 'bn';
   }
   function niceMax(m) {
     m = Math.max(m, 1);
     return Math.ceil(m / 50) * 50;
   }
 
-  // render a diverging bar chart into a container
-  function renderHChart(container, metricKey, curKey, priorKey, periodLabel) {
+  // render a diverging bar chart into a container (NA rows are dropped)
+  function renderHChart(container, metricKey, curKey, priorKey, priorLabel) {
     var rows = D.companies.map(function (c) {
       return { label: c.label, v: c[metricKey], cur: c[curKey], prior: c[priorKey] };
-    });
-    rows.sort(function (a, b) {
-      var an = (a.v === null || a.v === undefined), bn = (b.v === null || b.v === undefined);
-      if (an && bn) return a.label < b.label ? -1 : 1;
-      if (an) return 1;
-      if (bn) return -1;
-      return b.v - a.v;
-    });
+    }).filter(function (r) { return r.v !== null && r.v !== undefined; });
 
-    var nums = rows.filter(function (r) { return r.v !== null && r.v !== undefined; }).map(function (r) { return Math.abs(r.v); });
+    rows.sort(function (a, b) { return b.v - a.v; });
+
+    var nums = rows.map(function (r) { return Math.abs(r.v); });
     var maxAbs = nums.length ? Math.max.apply(null, nums) : 0;
     var scaleMax = niceMax(maxAbs);
 
     var html = '';
-    // scale header (min / 0 / max)
     html += '<div class="hc-scale">' +
       '<span class="s-left"></span>' +
       '<span class="s-mid"><span class="t-min">' + (-scaleMax) + '%</span><span class="t-zero">0%</span><span class="t-max">+' + scaleMax + '%</span></span>' +
@@ -284,16 +327,17 @@
 
     rows.forEach(function (r) {
       var v = r.v;
-      var isNa = (v === null || v === undefined);
       var cls = signClass(v);
       var bar = '';
-      if (!isNa && v !== 0) {
-        var w = (Math.abs(v) / scaleMax) * 50;   // % of track width
+      if (v !== 0) {
+        var w = (Math.abs(v) / scaleMax) * 50;
         var side = v > 0 ? 'pos' : 'neg';
         bar = '<span class="hc-bar ' + side + '" style="width:' + w.toFixed(3) + '%"></span>';
       }
-      var tip = r.label + ' · 2Q26 $' + fmtBn(r.cur) + ' ' + periodLabel + ' $' + fmtBn(r.prior);
-      html += '<div class="hc-row" title="' + esc(tip) + '">' +
+      var tip = '<b>' + esc(r.label) + '</b>' +
+        '<span class="tiprow"><span class="lbl">2Q 2026</span>' + usd(r.cur) + '</span>' +
+        '<span class="tiprow"><span class="lbl">' + esc(priorLabel) + '</span>' + usd(r.prior) + '</span>';
+      html += '<div class="hc-row" data-tip="' + esc(tip) + '">' +
         '<span class="hc-label">' + esc(r.label) + '</span>' +
         '<span class="hc-track">' + bar + '</span>' +
         '<span class="hc-val ' + cls + '">' + pctTxt(v) + '</span>' +
@@ -303,11 +347,62 @@
     container.innerHTML = html;
   }
 
+  // render an amount table (sorted by the given YoY metric)
+  function renderAmountTable(container, curKey, priorKey, yoyKey) {
+    var rows = D.companies.map(function (c) {
+      return { label: c.label, cur: c[curKey], prior: c[priorKey], yoy: c[yoyKey] };
+    });
+    rows.sort(function (a, b) {
+      var an = (a.yoy === null || a.yoy === undefined), bn = (b.yoy === null || b.yoy === undefined);
+      if (an && bn) return a.label < b.label ? -1 : 1;
+      if (an) return 1;
+      if (bn) return -1;
+      return b.yoy - a.yoy;
+    });
+
+    var html = '<thead><tr>' +
+      '<th>Company</th><th class="num">2Q 2026</th><th class="num">2Q 2025</th><th class="num">YoY</th>' +
+      '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      html += '<tr>' +
+        '<td class="c">' + esc(r.label) + '</td>' +
+        '<td class="num">' + usd(r.cur) + '</td>' +
+        '<td class="num muted">' + usd(r.prior) + '</td>' +
+        '<td class="num ' + signClass(r.yoy) + '">' + pctTxt(r.yoy) + '</td>' +
+        '</tr>';
+    });
+    html += '</tbody>';
+    container.innerHTML = html;
+  }
+
   var els = document.querySelectorAll('.hc[data-metric]');
   for (var i = 0; i < els.length; i++) {
     var el = els[i];
-    renderHChart(el, el.getAttribute('data-metric'), el.getAttribute('data-cur'), el.getAttribute('data-prior'), el.getAttribute('data-period'));
+    renderHChart(el, el.getAttribute('data-metric'), el.getAttribute('data-cur'), el.getAttribute('data-prior'), el.getAttribute('data-prior-label'));
   }
+
+  renderAmountTable(document.getElementById('totalTable'), 'q2', 'q2_prior', 'yoy');
+  renderAmountTable(document.getElementById('bbTable'), 'bb_q2', 'bb_q2_prior', 'bb_yoy');
+
+  // --- hover tooltip
+  var tip = document.getElementById('tip');
+  function positionTip(x, y) {
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var px = x + 16, py = y + 14;
+    if (px + tw > window.innerWidth - 8) px = x - tw - 16;
+    if (py + th > window.innerHeight - 8) py = y - th - 12;
+    tip.style.left = px + 'px';
+    tip.style.top = py + 'px';
+  }
+  document.querySelectorAll('.hc-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function (e) {
+      tip.innerHTML = row.getAttribute('data-tip');
+      tip.classList.add('show');
+      positionTip(e.clientX, e.clientY);
+    });
+    row.addEventListener('mousemove', function (e) { positionTip(e.clientX, e.clientY); });
+    row.addEventListener('mouseleave', function () { tip.classList.remove('show'); });
+  });
 
   // --- commentary
   var qBox = document.getElementById('quotes');
@@ -335,7 +430,6 @@
     foot.innerHTML = D.footnotes.map(esc).join('<br>');
   }
 
-  // gentle auto-refresh (data updates daily via the pipeline)
   setTimeout(function () { location.reload(); }, 30 * 60 * 1000);
 })();
 </script>
