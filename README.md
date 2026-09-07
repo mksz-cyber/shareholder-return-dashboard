@@ -3,8 +3,11 @@
 Live dashboard for the **"Global Peers Shareholding Returns Comparison"** workbook's
 quarterly *shareholder-return change* page.
 
-- **Top:** two charts — YoY % and QoQ % change in total shareholder return
-  (dividends + repurchases, USD bn) across global internet peers.
+- **Top:** four charts, in two sections —
+  - *Total shareholder return* (dividends + repurchases): YoY % and QoQ %.
+  - *Share repurchases* (buybacks only): YoY % and QoQ %.
+  - Diverging bars (red = increase, green = decrease, Chinese convention), value labels
+    aligned to company names.
 - **Bottom:** management commentary on shareholder returns for the current quarter.
 
 Live URL: https://mksz-cyber.github.io/shareholder-return-dashboard/
@@ -23,6 +26,9 @@ So each daily peer-update run ends with:
 1. `python export_web_json.py` (regenerates `data.js` from the canonical WIP.xlsx)
 2. commit + push `data.js`
 3. GitHub Pages rebuilds → the page reflects the latest quarter
+
+> This export + push is wired into the daily 11:00 automation ("Global peers earnings
+> daily refresh"), so it runs automatically every day.
 
 The page also auto-reloads every 30 minutes and offers a manual **Refresh** button.
 
