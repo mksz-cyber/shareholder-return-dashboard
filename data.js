@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-10T11:31:24+08:00",
+  "generatedAt": "2026-09-11T11:13:11+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
