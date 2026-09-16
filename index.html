@@ -878,7 +878,7 @@
     tip.style.left = px + 'px';
     tip.style.top = py + 'px';
   }
-  document.querySelectorAll('.hc-row, .auth-col, .an-row').forEach(function (row) {
+  document.querySelectorAll('.hc-row, .auth-col, .an-row, .an-trow[data-tip]').forEach(function (row) {
     row.addEventListener('mouseenter', function (e) {
       tip.innerHTML = row.getAttribute('data-tip');
       tip.classList.add('show');
