@@ -26,6 +26,9 @@
     --remain: #c9d8f5;
     --auth-bar-h: 320px;
     --auth-cap-h: 24px;
+    /* annual distributions chart (deliberately NOT red/green — those mean up/down here) */
+    --div: #c08a2e;     /* dividends  = amber/gold  */
+    --bb: #4f6bed;      /* repurchases = indigo    */
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -234,6 +237,51 @@
   .auth-note { margin-top: 20px; font-size: 12px; color: var(--muted); line-height: 1.7; }
   .tipsub { display: block; font-size: 10.5px; color: #aeb6c2; margin: -2px 0 6px; letter-spacing: .04em; }
 
+  /* ---- annual distributions: 2025 stacked bars (0-anchored, not diverging) ---- */
+  .an { margin-top: 14px; }
+  .an-scale { display: flex; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .an-scale .s-left  { flex: 0 0 118px; width: 118px; }
+  .an-scale .s-mid   { flex: 1 1 auto; position: relative; height: 14px; }
+  .an-scale .s-right { flex: 0 0 78px;  width: 78px;  }
+  .an-scale .t-min   { position: absolute; left: 0; top: 0; }
+  .an-scale .t-mid   { position: absolute; left: 50%; top: 0; transform: translateX(-50%); }
+  .an-scale .t-max   { position: absolute; right: 0; top: 0; }
+
+  .an-row { display: flex; align-items: center; height: 31px; }
+  .an-label {
+    flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right;
+    font-size: 13px; font-weight: 600; color: #3a3f47;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  /* the left border is the zero axis; the value sits outside it */
+  .an-track { flex: 1 1 auto; position: relative; height: 100%; border-left: 1px solid var(--axis); }
+  .an-bar {
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    height: 16px; display: flex; border-radius: 4px; overflow: hidden;
+  }
+  .an-seg { height: 100%; flex: none; }
+  .an-seg.div { background: var(--div); }
+  .an-seg.bb  { background: var(--bb); }
+  .an-val {
+    flex: 0 0 78px; width: 78px; padding-left: 14px; text-align: left;
+    font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .an-val.na { color: var(--na); font-weight: 500; }
+  .an-row:hover .an-bar { box-shadow: 0 0 0 2px rgba(79,107,237,.22); }
+  .an-row:hover .an-label { color: var(--text); }
+
+  /* ---- annual distributions: five-year small multiples ---- */
+  .an-trend { margin-top: 14px; }
+  .an-trow { display: flex; align-items: center; height: 40px; }
+  .an-trow.an-head { height: 20px; }
+  .an-trow.an-head .an-tcol { font-size: 11px; font-weight: 600; color: var(--muted); }
+  .an-tcols { flex: 1 1 auto; display: flex; height: 100%; }
+  .an-tcol { flex: 1 1 0; min-width: 0; display: flex; justify-content: center; align-items: flex-end; }
+  .an-tbar { width: 46%; max-width: 26px; display: flex; flex-direction: column; border-radius: 3px; overflow: hidden; }
+  .an-tseg { width: 100%; flex: none; }
+  .an-tseg.bb  { background: var(--bb); }
+  .an-tseg.div { background: var(--div); }
+
   footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
   footer a { color: var(--accent); text-decoration: none; }
   footer .foot { margin-top: 8px; }
@@ -258,6 +306,7 @@
   <nav class="tabs">
     <button class="tab active" type="button" data-tab="return">Shareholder return</button>
     <button class="tab" type="button" data-tab="auth">Buyback authorization</button>
+    <button class="tab" type="button" data-tab="annual">Annual distributions</button>
   </nav>
 
   <section class="tab-panel active" id="tab-return">
@@ -386,6 +435,52 @@
     </div>
 
     <div class="auth-note" id="authFootnotes"></div>
+  </section>
+
+  <section class="tab-panel" id="tab-annual">
+    <div class="section-title">
+      <div class="eyebrow">Annual distributions</div>
+      <h2>Dividends + share repurchases</h2>
+      <p>Calendar years 2021–2025, USD bn.</p>
+    </div>
+
+    <div class="card">
+      <h3>2025 distributions</h3>
+      <div class="hint">Dividends + share repurchases paid during 2025, USD bn — largest first.</div>
+      <div class="an" id="annual2025"></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--div)"></i> Dividends</span>
+        <span><i class="swatch" style="background:var(--bb)"></i> Share repurchases</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>Five-year trend (2021–2025)</h3>
+      <div class="hint">Each row is scaled to its own five-year peak — read the shape, not the level.</div>
+      <div class="an-trend" id="annualTrend"></div>
+    </div>
+
+    <div class="section-title">
+      <div class="eyebrow">Detail</div>
+      <h2>Dividends</h2>
+      <p>Cash dividends paid per calendar year, USD bn. All companies, largest 2025 total first.</p>
+    </div>
+    <div class="card">
+      <div class="hint" style="margin-bottom:4px">USD bn &middot; cash paid during the year</div>
+      <table class="tbl" id="annualDivTable"></table>
+    </div>
+
+    <div class="section-title">
+      <div class="eyebrow">Detail</div>
+      <h2>Share repurchases</h2>
+      <p>Cash paid to repurchase shares per calendar year, USD bn. Same companies and same order as the dividends table.</p>
+    </div>
+    <div class="card">
+      <div class="hint" style="margin-bottom:4px">USD bn &middot; cash-flow basis</div>
+      <table class="tbl" id="annualBbTable"></table>
+    </div>
+
+    <div class="auth-note" id="annualFootnotes"></div>
   </section>
 
   <footer>
@@ -569,6 +664,164 @@
     container.innerHTML = html;
   }
 
+  // ---- annual distributions ----
+  var AN_COS = (D.annual && D.annual.companies) ? D.annual.companies : [];
+  var AN_YEARS = (D.annual && D.annual.years && D.annual.years.length) ? D.annual.years : [2021, 2022, 2023, 2024, 2025];
+  var AN_LAST = AN_YEARS.length - 1;
+  var AN_MAXH = 30;   // px — tallest mini bar inside a 40px trend row
+
+  // year total: null when the year has no value at all; a real 0 stays 0
+  function anYearTotal(c, yi) {
+    var dv = c.div ? c.div[yi] : null;
+    var bv = c.bb ? c.bb[yi] : null;
+    var hasD = (dv !== null && dv !== undefined);
+    var hasB = (bv !== null && bv !== undefined);
+    if (!hasD && !hasB) return null;
+    return (hasD ? dv : 0) + (hasB ? bv : 0);
+  }
+  function anTotal2025(c) { return anYearTotal(c, AN_LAST); }
+  function anHasAny(c) {
+    var arr = (c.div || []).concat(c.bb || []);
+    for (var i = 0; i < arr.length; i++) { if (arr[i] !== null && arr[i] !== undefined) return true; }
+    return false;
+  }
+  function anCmpName(a, b) {
+    var x = String(a).toLowerCase(), y = String(b).toLowerCase();
+    return x < y ? -1 : (x > y ? 1 : 0);
+  }
+  // one shared order for card 1, card 2 and both tables:
+  // 2025 total desc; rows with no 2025 value sink and are sorted alphabetically.
+  function anCmpTotal(a, b) {
+    var an = (a.t === null || a.t === undefined), bn = (b.t === null || b.t === undefined);
+    if (an && bn) return anCmpName(a.c.name, b.c.name);
+    if (an) return 1;
+    if (bn) return -1;
+    if (b.t !== a.t) return b.t - a.t;
+    return anCmpName(a.c.name, b.c.name);
+  }
+  function anRows() {
+    return AN_COS.map(function (c) { return { c: c, t: anTotal2025(c) }; }).sort(anCmpTotal);
+  }
+  function anNiceMax(m) {
+    m = Math.max(m, 0.001);
+    var mag = Math.pow(10, Math.floor(Math.log(m) / Math.LN10));
+    var steps = [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10];
+    var n = m / mag;
+    for (var i = 0; i < steps.length; i++) { if (n <= steps[i] + 1e-9) return steps[i] * mag; }
+    return 10 * mag;
+  }
+  function anTick(v) { return String(Math.round(v * 100) / 100); }
+  function anTip2025(c) {
+    var dv = c.div ? c.div[AN_LAST] : null, bv = c.bb ? c.bb[AN_LAST] : null;
+    return '<b>' + esc(c.name) + '</b><span class="tipsub">USD bn &middot; 2025</span>' +
+      '<span class="tiprow"><span class="lbl">Dividends</span>' + amt(dv) + '</span>' +
+      '<span class="tiprow"><span class="lbl">Repurchases</span>' + amt(bv) + '</span>' +
+      '<span class="tiprow"><span class="lbl">Total</span>' + amt(anTotal2025(c)) + '</span>';
+  }
+  function anTipTrend(c) {
+    var t = '<b>' + esc(c.name) + '</b><span class="tipsub">USD bn &middot; total, by year</span>';
+    for (var i = 0; i < AN_YEARS.length; i++) {
+      t += '<span class="tiprow"><span class="lbl">' + AN_YEARS[i] + '</span>' + amt(anYearTotal(c, i)) + '</span>';
+    }
+    return t;
+  }
+
+  // card 1 — 2025 dividends + repurchases, 0-anchored horizontal stacked bars
+  function renderAnnual2025(container) {
+    var rows = anRows().filter(function (r) { return r.c.avail2025 && r.t !== null && r.t > 0; });
+    if (!rows.length) { container.innerHTML = '<p class="hint" style="padding:20px 0">No 2025 annual data.</p>'; return; }
+    var scaleMax = anNiceMax(rows[0].t);
+
+    var html = '<div class="an-scale">' +
+      '<span class="s-left"></span>' +
+      '<span class="s-mid"><span class="t-min">0</span><span class="t-mid">' + anTick(scaleMax / 2) +
+        '</span><span class="t-max">' + anTick(scaleMax) + '</span></span>' +
+      '<span class="s-right"></span>' +
+      '</div>';
+
+    rows.forEach(function (r) {
+      var c = r.c, t = r.t;
+      var dv = c.div ? c.div[AN_LAST] : null, bv = c.bb ? c.bb[AN_LAST] : null;
+      var dvv = (dv === null || dv === undefined) ? 0 : dv;
+      var bvv = (bv === null || bv === undefined) ? 0 : bv;
+      var w = (t / scaleMax) * 100;
+      var bar = '<span class="an-bar" style="width:' + w.toFixed(3) + '%">' +
+          '<span class="an-seg div" style="width:' + ((dvv / t) * 100).toFixed(3) + '%"></span>' +
+          '<span class="an-seg bb" style="width:' + ((bvv / t) * 100).toFixed(3) + '%"></span>' +
+        '</span>';
+      html += '<div class="an-row" data-tip="' + esc(anTip2025(c)) + '">' +
+        '<span class="an-label">' + esc(c.name) + '</span>' +
+        '<span class="an-track">' + bar + '</span>' +
+        '<span class="an-val">' + amt(t) + '</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // card 2 — five-year small multiples, each row scaled to its own five-year peak
+  function renderAnnualTrend(container) {
+    var rows = anRows().filter(function (r) { return anHasAny(r.c); });
+    if (!rows.length) { container.innerHTML = '<p class="hint" style="padding:20px 0">No annual data.</p>'; return; }
+
+    var html = '<div class="an-trow an-head"><span class="an-label"></span><span class="an-tcols">';
+    AN_YEARS.forEach(function (y) { html += '<span class="an-tcol">' + y + '</span>'; });
+    html += '</span><span class="an-val"></span></div>';
+
+    rows.forEach(function (r) {
+      var c = r.c, peak = 0, tots = [];
+      for (var i = 0; i < AN_YEARS.length; i++) {
+        var t = anYearTotal(c, i);
+        tots.push(t);
+        if (t !== null && t > peak) peak = t;
+      }
+      var cols = '';
+      for (var j = 0; j < AN_YEARS.length; j++) {
+        var tj = tots[j], inner = '';
+        if (tj !== null && tj > 0 && peak > 0) {
+          var dv = c.div ? c.div[j] : null, bv = c.bb ? c.bb[j] : null;
+          var dvv = (dv === null || dv === undefined) ? 0 : dv;
+          var bvv = (bv === null || bv === undefined) ? 0 : bv;
+          inner = '<span class="an-tbar" style="height:' + ((tj / peak) * AN_MAXH).toFixed(3) + 'px">' +
+              '<span class="an-tseg bb" style="height:' + ((bvv / tj) * 100).toFixed(3) + '%"></span>' +
+              '<span class="an-tseg div" style="height:' + ((dvv / tj) * 100).toFixed(3) + '%"></span>' +
+            '</span>';
+        }
+        cols += '<span class="an-tcol">' + inner + '</span>';
+      }
+      var na = (r.t === null || r.t === undefined);
+      html += '<div class="an-trow" data-tip="' + esc(anTipTrend(c)) + '">' +
+        '<span class="an-label">' + esc(c.name) + '</span>' +
+        '<span class="an-tcols">' + cols + '</span>' +
+        '<span class="an-val' + (na ? ' na' : '') + '">' + amt(r.t) + '</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // one of the two amount tables; both share the same row order
+  function renderAnnualTable(container, key, yoyKey) {
+    var rows = anRows();
+    var html = '<thead><tr><th>Company</th>';
+    AN_YEARS.forEach(function (y) { html += '<th class="num">' + y + '</th>'; });
+    html += '<th class="num">2025 YoY</th></tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var c = r.c;
+      html += '<tr><td class="c">' + esc(c.name) + '</td>';
+      for (var i = 0; i < AN_YEARS.length; i++) {
+        var v = c[key] ? c[key][i] : null;
+        var missing = (v === null || v === undefined);
+        html += '<td class="num' + (missing ? ' na' : '') + '">' + amt(v) + '</td>';
+      }
+      // the annual sheet stores growth as a fraction (0.5345); the page renders integer percent
+      var yv0 = c[yoyKey] ? c[yoyKey][AN_LAST] : null;
+      var yv = (yv0 === null || yv0 === undefined) ? null : yv0 * 100;
+      html += '<td class="num ' + signClass(yv) + '">' + pctTxt(yv) + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody>';
+    container.innerHTML = html;
+  }
+
   var els = document.querySelectorAll('.hc[data-metric]');
   for (var i = 0; i < els.length; i++) {
     var el = els[i];
@@ -587,6 +840,15 @@
     authFoot.innerHTML = D.authFootnotes.map(esc).join('<br>');
   }
 
+  renderAnnual2025(document.getElementById('annual2025'));
+  renderAnnualTrend(document.getElementById('annualTrend'));
+  renderAnnualTable(document.getElementById('annualDivTable'), 'div', 'divYoy');
+  renderAnnualTable(document.getElementById('annualBbTable'), 'bb', 'bbYoy');
+  var annFoot = document.getElementById('annualFootnotes');
+  if (annFoot && D.annual && D.annual.footnotes && D.annual.footnotes.length) {
+    annFoot.innerHTML = D.annual.footnotes.map(esc).join('<br>');
+  }
+
   // --- tabs
   var tabs = document.querySelectorAll('.tab');
   function showTab(name, updateHash) {
@@ -603,7 +865,8 @@
   tabs.forEach(function (t) {
     t.addEventListener('click', function () { showTab(t.getAttribute('data-tab')); });
   });
-  if ((location.hash || '').replace('#', '') === 'auth') showTab('auth', false);
+  var initialTab = (location.hash || '').replace('#', '');
+  if (initialTab === 'return' || initialTab === 'auth' || initialTab === 'annual') showTab(initialTab, false);
 
   // --- hover tooltip
   var tip = document.getElementById('tip');
@@ -615,7 +878,7 @@
     tip.style.left = px + 'px';
     tip.style.top = py + 'px';
   }
-  document.querySelectorAll('.hc-row, .auth-col').forEach(function (row) {
+  document.querySelectorAll('.hc-row, .auth-col, .an-row').forEach(function (row) {
     row.addEventListener('mouseenter', function (e) {
       tip.innerHTML = row.getAttribute('data-tip');
       tip.classList.add('show');

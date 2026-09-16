@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-16T11:04:15+08:00",
+  "generatedAt": "2026-09-16T15:25:14+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -425,5 +425,760 @@ window.GP_DATA = {
     "Authorization / repurchased / remaining are cumulative under each program, USD bn, as disclosed in the Appendix tab.",
     "Non-USD authorizations converted to USD bn at the model's standing rates (HKD 7.8, JPY 159.3).",
     "Bars are normalised to 100% of each company's own authorization; the figure above each bar is the total authorized (USD bn)."
-  ]
+  ],
+  "annual": {
+    "years": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "companies": [
+      {
+        "name": "Tencent",
+        "div": [
+          2.0,
+          1.9,
+          2.9,
+          4.0,
+          6.137820512820513
+        ],
+        "divYoy": [
+          null,
+          -0.050000000000000044,
+          0.5263157894736843,
+          0.3793103448275863,
+          0.5344551282051282
+        ],
+        "bb": [
+          0.3,
+          4.9,
+          6.3,
+          14.2,
+          10.256410256410257
+        ],
+        "bbYoy": [
+          null,
+          15.333333333333336,
+          0.2857142857142856,
+          1.253968253968254,
+          -0.27771758757674236
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Alibaba",
+        "div": [
+          0.0,
+          0.0,
+          2.5,
+          4.0,
+          4.6
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          0.6000000000000001,
+          0.1499999999999999
+        ],
+        "bb": [
+          10.5985,
+          10.899999999999999,
+          9.6,
+          16.0,
+          1.673
+        ],
+        "bbYoy": [
+          null,
+          0.028447421804972395,
+          -0.11926605504587151,
+          0.6666666666666667,
+          -0.8954375
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "NetEase",
+        "div": [
+          0.550541,
+          0.97484,
+          1.128735,
+          1.549278,
+          1.9310139999999998
+        ],
+        "divYoy": [
+          null,
+          0.7706946439956337,
+          0.1578669320093553,
+          0.37257903759518385,
+          0.24639606319847052
+        ],
+        "bb": [
+          2.0,
+          1.2,
+          0.6441,
+          1.174427,
+          0.093674
+        ],
+        "bbYoy": [
+          null,
+          -0.4,
+          -0.46324999999999994,
+          0.823361279304456,
+          -0.920238550373927
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Baidu",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          1.2,
+          0.272,
+          0.669,
+          1.0470000000000002,
+          0.792
+        ],
+        "bbYoy": [
+          null,
+          -0.7733333333333333,
+          1.4595588235294117,
+          0.5650224215246638,
+          -0.2435530085959886
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Kuaishou",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          0.0,
+          0.0,
+          0.18152109974424552,
+          0.6979917872153847,
+          0.39974511288717945
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          2.845237761333649,
+          -0.4272925266327997
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Vipshop",
+        "div": [
+          0.0,
+          0.0,
+          0.0,
+          0.25,
+          0.24729999999999996
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          -0.010800000000000143
+        ],
+        "bb": [
+          0.3042,
+          0.9523,
+          0.7133,
+          0.5361,
+          0.6967000000000001
+        ],
+        "bbYoy": [
+          null,
+          2.130506245890861,
+          -0.25097133256326787,
+          -0.24842282349642508,
+          0.2995709755642606
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Apple",
+        "div": [
+          14.586000000000002,
+          14.876999999999999,
+          15.082,
+          15.309,
+          15.441999999999998
+        ],
+        "divYoy": [
+          null,
+          0.019950637597696108,
+          0.013779659877663608,
+          0.015051054236838501,
+          0.008687700045724611
+        ],
+        "bb": [
+          81.9,
+          88.80000000000001,
+          78.1,
+          98.055,
+          91.80599999999998
+        ],
+        "bbYoy": [
+          null,
+          0.0842490842490844,
+          -0.12049549549549565,
+          0.25550576184379015,
+          -0.06372953954413363
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Amazon",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          0.0,
+          6.0,
+          0.0,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          -1.0,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "Microsoft",
+        "div": [
+          17.784000000000002,
+          19.4,
+          21.314,
+          22.892000000000003,
+          25.27
+        ],
+        "divYoy": [
+          null,
+          0.09086819613135377,
+          0.09865979381443313,
+          0.07403584498451732,
+          0.10387908439629556
+        ],
+        "bb": [
+          24.416,
+          24.799999999999997,
+          15.559999999999999,
+          11.899999999999999,
+          16.593
+        ],
+        "bbYoy": [
+          null,
+          0.015727391874180707,
+          -0.3725806451612903,
+          -0.23521850899742935,
+          0.3943697478991599
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Meta",
+        "div": [
+          0.0,
+          0.0,
+          0.0,
+          5.07,
+          5.33
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          0.05128205128205132
+        ],
+        "bb": [
+          44.81,
+          27.93,
+          20.03,
+          29.82,
+          26.32
+        ],
+        "bbYoy": [
+          null,
+          -0.3767016291006472,
+          -0.2828499820981023,
+          0.48876684972541184,
+          -0.11737089201877937
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Alphabet",
+        "div": [
+          0.0,
+          0.0,
+          0.0,
+          7.363,
+          10.049
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          0.3647969577617818
+        ],
+        "bb": [
+          50.3,
+          59.3,
+          62.184,
+          62.047,
+          45.398
+        ],
+        "bbYoy": [
+          null,
+          0.17892644135188873,
+          0.048634064080944395,
+          -0.002203139071143667,
+          -0.2683288474865827
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "TSMC",
+        "div": [
+          9.514,
+          9.56,
+          9.352,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          0.004834980029430502,
+          -0.02175732217573223,
+          -1.0,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "IBM",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "AT&T",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "JD.com",
+        "div": [
+          0.0,
+          2.0,
+          1.0,
+          1.2,
+          1.5
+        ],
+        "divYoy": [
+          null,
+          null,
+          -0.5,
+          0.19999999999999996,
+          0.25
+        ],
+        "bb": [
+          0.0,
+          0.0,
+          0.3562,
+          3.6,
+          3.0
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          9.106681639528354,
+          -0.16666666666666674
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Autohome",
+        "div": [
+          0.105667,
+          0.061138,
+          0.069154,
+          0.0,
+          0.0
+        ],
+        "divYoy": [
+          null,
+          -0.42140876527203386,
+          0.1311132192744282,
+          -1.0,
+          null
+        ],
+        "bb": [
+          0.004897,
+          0.104264,
+          0.089269,
+          0.0,
+          0.0
+        ],
+        "bbYoy": [
+          null,
+          20.29140289973453,
+          -0.14381761681884442,
+          -1.0,
+          null
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Adobe",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "Weibo",
+        "div": [
+          0.0,
+          0.0,
+          0.0,
+          0.2,
+          0.2
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          0.0
+        ],
+        "bb": [
+          0.0,
+          0.0577,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bbYoy": [
+          null,
+          null,
+          -1.0,
+          null,
+          null
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Texas Instruments",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "Trip.com",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          0.224,
+          0.3,
+          0.0
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          0.3392857142857142,
+          -1.0
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Salesforce",
+        "div": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bb": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "bbYoy": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "avail2025": false
+      },
+      {
+        "name": "Electronic Arts",
+        "div": [
+          0.194,
+          0.206,
+          0.206,
+          0.202,
+          0.0
+        ],
+        "divYoy": [
+          null,
+          0.061855670103092786,
+          0.0,
+          -0.01941747572815522,
+          -1.0
+        ],
+        "bb": [
+          1.3,
+          1.295,
+          1.3,
+          1.45,
+          0.0
+        ],
+        "bbYoy": [
+          null,
+          -0.0038461538461539435,
+          0.0038610038610038533,
+          0.11538461538461542,
+          -1.0
+        ],
+        "avail2025": true
+      },
+      {
+        "name": "Broadcom*",
+        "div": [
+          6.433000000000001,
+          7.194,
+          8.154,
+          10.152999999999999,
+          11.454
+        ],
+        "divYoy": [
+          null,
+          0.11829628478159471,
+          0.13344453711426185,
+          0.2451557517782681,
+          0.12813946616763539
+        ],
+        "bb": [
+          4.173,
+          6.877,
+          14.453999999999999,
+          6.138,
+          12.123999999999999
+        ],
+        "bbYoy": [
+          null,
+          0.6479750778816198,
+          1.1017885705976442,
+          -0.5753424657534246,
+          0.9752362333007492
+        ],
+        "avail2025": true
+      }
+    ],
+    "footnotes": [
+      "USD bn, calendar years 2021–2025. Cash actually paid during the year (dividends paid; share repurchases on a cash-flow basis) — not amounts declared.",
+      "— = source cell unavailable. These are known open items whose source cells currently carry a broken Excel reference and are pending re-point to ‘Quarterly input’: IBM / AT&T / Texas Instruments dividends, and Adobe / Salesforce / Texas Instruments repurchases. Displayed as unavailable — not modified, not zero-filled.",
+      "0.0 = a genuinely nil amount (e.g. Autohome and Electronic Arts 2025, Weibo 2025 repurchases). This is deliberately distinct from —.",
+      "* Broadcom fiscal year differs (Feb–Jan); its 2025 column is FY2025 (Feb 2025 – Jan 2026).",
+      "Companies with no value in a given year are shown as — in the tables but still occupy their row (nothing is silently dropped).",
+      "Source: workbook sheet ‘Annual distributions’ (dividends C:G, share repurchases J:N)."
+    ]
+  }
 };
