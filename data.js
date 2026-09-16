@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-15T11:11:10+08:00",
+  "generatedAt": "2026-09-16T10:50:24+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -173,6 +173,201 @@ window.GP_DATA = {
       "bb_q1_prior": 0.0
     }
   ],
+  "authorizations": [
+    {
+      "label": "Alphabet",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 210.0,
+      "authorized": 210.0,
+      "used": 140.5,
+      "remaining": 69.5,
+      "usedPct": 66.9,
+      "until": "No expiry date",
+      "asOf": "Jul-26"
+    },
+    {
+      "label": "Apple",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 200.0,
+      "authorized": 200.0,
+      "used": 62.0,
+      "remaining": 138.0,
+      "usedPct": 31.0,
+      "until": "No expiry date",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Meta",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 149.0,
+      "authorized": 149.0,
+      "used": 123.97,
+      "remaining": 25.03,
+      "usedPct": 83.2,
+      "until": "No expiry date",
+      "asOf": "Jul-26"
+    },
+    {
+      "label": "Microsoft",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 60.0,
+      "authorized": 60.0,
+      "used": 19.4,
+      "remaining": 40.6,
+      "usedPct": 32.3,
+      "until": "No expiry date",
+      "asOf": "Jul-26"
+    },
+    {
+      "label": "Netflix",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 55.0,
+      "authorized": 55.0,
+      "used": 27.1,
+      "remaining": 27.9,
+      "usedPct": 49.3,
+      "until": "No expiry date",
+      "asOf": "Jul-26"
+    },
+    {
+      "label": "Alibaba",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 25.0,
+      "authorized": 25.0,
+      "used": 6.11,
+      "remaining": 18.89,
+      "usedPct": 24.4,
+      "until": "Mar-27",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Broadcom",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 20.0,
+      "authorized": 20.0,
+      "used": 9.9,
+      "remaining": 10.1,
+      "usedPct": 49.5,
+      "until": "Dec-26",
+      "asOf": "Sep-26"
+    },
+    {
+      "label": "PayPal",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 15.0,
+      "authorized": 15.0,
+      "used": 4.1,
+      "remaining": 10.9,
+      "usedPct": 27.3,
+      "until": "No expiry date",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Trip.com",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 5.3,
+      "authorized": 5.3,
+      "used": 0.232,
+      "remaining": 5.068,
+      "usedPct": 4.4,
+      "until": "No expiry date",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "NetEase",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 5.0,
+      "authorized": 5.0,
+      "used": 2.3,
+      "remaining": 2.7,
+      "usedPct": 46.0,
+      "until": "Jan-29",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Baidu",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 5.0,
+      "authorized": 5.0,
+      "used": 0.259,
+      "remaining": 4.741,
+      "usedPct": 5.2,
+      "until": "Dec-28",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "JD.com",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 5.0,
+      "authorized": 5.0,
+      "used": 4.0,
+      "remaining": 1.0,
+      "usedPct": 80.0,
+      "until": "Aug-27",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Sony",
+      "currency": "JPY",
+      "fx": 159.3,
+      "authorizedLocal": 500.0,
+      "authorized": 3.139,
+      "used": 0.753,
+      "remaining": 2.385,
+      "usedPct": 24.0,
+      "until": "May-27",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Meituan",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 3.0,
+      "authorized": 3.0,
+      "used": 2.689,
+      "remaining": 0.311,
+      "usedPct": 89.6,
+      "until": "No expiry date",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Kuaishou",
+      "currency": "HKD",
+      "fx": 7.8,
+      "authorizedLocal": 16.0,
+      "authorized": 2.051,
+      "used": 0.987,
+      "remaining": 1.064,
+      "usedPct": 48.1,
+      "until": "2027 AGM",
+      "asOf": "Aug-26"
+    },
+    {
+      "label": "Vipshop",
+      "currency": "USD",
+      "fx": 1.0,
+      "authorizedLocal": 2.0,
+      "authorized": 2.0,
+      "used": 0.783,
+      "remaining": 1.217,
+      "usedPct": 39.2,
+      "until": "Feb-27",
+      "asOf": "Aug-26"
+    }
+  ],
+  "fxNote": "Non-USD authorizations converted to USD bn at the model's standing rates (HKD 7.8, JPY 159.3).",
   "commentary": [
     {
       "name": "Netflix",
@@ -225,5 +420,10 @@ window.GP_DATA = {
   "footnotes": [
     "* Broadcom fiscal year differs (Feb–Jan); 2Q 2026 = FQ3 FY2026.",
     "n/m = not meaningful (prior-period value is zero)."
+  ],
+  "authFootnotes": [
+    "Authorization / repurchased / remaining are cumulative under each program, USD bn, as disclosed in the Appendix tab.",
+    "Non-USD authorizations converted to USD bn at the model's standing rates (HKD 7.8, JPY 159.3).",
+    "Bars are normalised to 100% of each company's own authorization; the figure above each bar is the total authorized (USD bn)."
   ]
 };
