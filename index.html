@@ -270,10 +270,12 @@
   .an-row:hover .an-bar { box-shadow: 0 0 0 2px rgba(79,107,237,.22); }
   .an-row:hover .an-label { color: var(--text); }
 
-  /* ---- annual distributions: year-over-year growth grid ---- */
+  /* ---- annual distributions: year-over-year growth grid (values only, no bars) ---- */
   .ay { margin-top: 14px; }
-  .ay-row { display: flex; align-items: center; height: 28px; }
+  .ay-row { display: flex; align-items: center; height: 26px; }
+  .ay-row + .ay-row { border-top: 1px solid #f1f3f6; }
   .ay-row.ay-head { height: 20px; }
+  .ay-head .ay-colhead { font-size: 11px; font-weight: 600; color: var(--muted); }
   .ay-head .an-val { font-size: 11px; font-weight: 600; color: var(--muted); }
   .ay-label {
     flex: 0 0 118px; width: 118px; padding-right: 14px; text-align: right;
@@ -281,32 +283,14 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .ay-cols { flex: 1 1 auto; display: flex; height: 100%; }
-  .ay-col { flex: 1 1 0; min-width: 0; position: relative; height: 100%; }
-  /* year caption sits on the column's zero line */
-  .ay-col.ay-colhead { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--muted); }
-  /* one mini plot per year: the centre hairline is the zero axis */
-  .ay-plot { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
-  .ay-plot::before {
-    content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
-    background: var(--axis); transform: translateX(-50%);
-  }
-  .ay-bar { position: absolute; top: 50%; transform: translateY(-50%); height: 15px; border-radius: 3px; }
-  .ay-bar.pos { left: 50%; background: var(--up); }
-  .ay-bar.neg { right: 50%; background: var(--down); }
-  .ay-bar.zero { left: 50%; background: var(--na); }
-  /* the value rides at the outer end of its own bar, so bar and number always pair up */
-  .ay-cap { position: absolute; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 800; line-height: 1; }
-  .ay-cap.pos { color: var(--up); }
-  .ay-num {
-    position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap;
-    font-size: 10.5px; font-weight: 700; font-variant-numeric: tabular-nums;
-  }
-  .ay-num.pos { color: var(--up); }
-  .ay-num.neg { color: var(--down); }
+  .ay-col { flex: 1 1 0; min-width: 0; display: flex; align-items: center; justify-content: center; }
+  .ay-num { font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ay-num.pos  { color: var(--up); }
+  .ay-num.neg  { color: var(--down); }
   .ay-num.zero { color: var(--muted); }
-  .ay-num.na  { color: var(--na); font-weight: 500; }
+  .ay-num.na   { color: var(--na); font-weight: 500; }
+  .ay-row:hover { background: #fafbfc; }
   .ay-row:hover .ay-label { color: var(--text); }
-  .ay-row:hover .ay-bar { box-shadow: 0 0 0 2px rgba(79,107,237,.22); }
 
   footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
   footer a { color: var(--accent); text-decoration: none; }
@@ -482,20 +466,15 @@
 
     <div class="card" style="margin-top:20px">
       <h3>Year-over-year growth (2022–2025)</h3>
-      <div class="hint">Change in total distributions (dividends + repurchases) against the previous year — one bar per year per company, diverging from its centre line.</div>
-      <div class="hint">All bars share a ±100% scale; larger moves are capped and flagged ›. Right-hand figure: 2025 total distributions, USD bn. Companies with no comparable prior year are omitted.</div>
+      <div class="hint">Change in total distributions (dividends + repurchases) against the previous year, per company — <b style="color:var(--up)">red</b> = up on the prior year, <b style="color:var(--down)">green</b> = down.</div>
+      <div class="hint">Right-hand figure: 2025 total distributions, USD bn. Companies with no comparable prior year are omitted; &mdash; = not measurable.</div>
       <div class="ay" id="annualYoy"></div>
-      <div class="legend">
-        <span><i class="swatch" style="background:var(--up)"></i> Up on prior year</span>
-        <span><i class="swatch" style="background:var(--down)"></i> Down on prior year</span>
-        <span><i class="swatch" style="background:var(--na)"></i> Flat, or no comparable prior year</span>
-      </div>
     </div>
 
     <div class="section-title">
       <div class="eyebrow">Detail</div>
       <h2>Dividends</h2>
-      <p>Cash dividends paid per calendar year, USD bn. All companies, largest 2025 total first.</p>
+      <p>Cash dividends paid per calendar year, USD bn — largest 2025 total first. Companies that paid no dividend in any year are left out.</p>
     </div>
     <div class="card">
       <div class="hint" style="margin-bottom:4px">USD bn &middot; cash paid during the year</div>
@@ -505,7 +484,7 @@
     <div class="section-title">
       <div class="eyebrow">Detail</div>
       <h2>Share repurchases</h2>
-      <p>Cash paid to repurchase shares per calendar year, USD bn. Same companies and same order as the dividends table.</p>
+      <p>Cash paid to repurchase shares per calendar year, USD bn — largest 2025 total first. Companies with no repurchases in any year are left out.</p>
     </div>
     <div class="card">
       <div class="hint" style="margin-bottom:4px">USD bn &middot; cash-flow basis</div>
@@ -700,9 +679,6 @@
   var AN_COS = (D.annual && D.annual.companies) ? D.annual.companies : [];
   var AN_YEARS = (D.annual && D.annual.years && D.annual.years.length) ? D.annual.years : [2021, 2022, 2023, 2024, 2025];
   var AN_LAST = AN_YEARS.length - 1;
-  var AY_CAP  = 1.0;  // ±100% fills a mini bar; anything larger is capped and flagged
-  var AY_MAXL = 56;   // px — longest mini bar; leaves room for the value at its outer end
-
   // year total: null when the year has no value at all; a real 0 stays 0
   function anYearTotal(c, yi) {
     var dv = c.div ? c.div[yi] : null;
@@ -758,11 +734,9 @@
       '<span class="tiprow"><span class="lbl">Total</span>' + amt(anTotal2025(c)) + '</span>';
   }
   function ayTip(c) {
-    var t = '<b>' + esc(c.name) + '</b><span class="tipsub">Total distributions &middot; YoY</span>';
-    for (var i = 1; i < AN_YEARS.length; i++) {
-      var v = ayYoy(c, i);
-      t += '<span class="tiprow"><span class="lbl">' + AN_YEARS[i] + ' vs ' + AN_YEARS[i - 1] + '</span>' +
-        pctTxt(v === null ? null : v * 100) + '</span>';
+    var t = '<b>' + esc(c.name) + '</b><span class="tipsub">Total distributions &middot; USD bn by year</span>';
+    for (var i = 0; i < AN_YEARS.length; i++) {
+      t += '<span class="tiprow"><span class="lbl">' + AN_YEARS[i] + '</span>' + amt(anYearTotal(c, i)) + '</span>';
     }
     return t;
   }
@@ -799,7 +773,7 @@
     container.innerHTML = html;
   }
 
-  // card 2 — year-over-year growth grid: four mini diverging bars per company (2022–2025)
+  // card 2 — year-over-year growth grid, values only (2022–2025)
   function renderAnnualYoy(container) {
     var rows = anRows().filter(function (r) { return ayHasAny(r.c); });
     if (!rows.length) { container.innerHTML = '<p class="hint" style="padding:20px 0">No annual data.</p>'; return; }
@@ -811,45 +785,33 @@
     html += '</span><span class="an-val">USD bn</span></div>';
 
     rows.forEach(function (r) {
-      var c = r.c, cols = '';
+      var c = r.c, cells = '';
       for (var i = 1; i < AN_YEARS.length; i++) {
-        var v = ayYoy(c, i), body;
-        if (v === null) {
-          // not measurable — no bar, em dash keeps the year slot visible
-          body = '<span class="ay-plot"></span><span class="ay-num na" style="left:calc(50% + 4px)">&mdash;</span>';
-        } else {
-          // 0% is neither up nor down — neutral grey, a marker tick rather than a direction
-          var zero = (v === 0);
-          var cls = zero ? 'zero' : (v > 0 ? 'pos' : 'neg');
-          var capped = Math.abs(v) > AY_CAP + 1e-9;
-          var len = Math.max(Math.min(Math.abs(v), AY_CAP) / AY_CAP * AY_MAXL, 1.5);
-          // value sits just beyond the bar (past the cap marker when there is one), on the
-          // outer side, so every number is physically attached to the bar it describes
-          var off = capped ? len + 8 : len + 3;
-          var place = (v > 0 ? 'left:' : (zero ? 'left:' : 'right:')) + 'calc(50% + ' + off.toFixed(2) + 'px)';
-          body = '<span class="ay-plot">' +
-              '<span class="ay-bar ' + cls + '" style="width:' + len.toFixed(2) + 'px"></span>' +
-              (capped
-                ? '<span class="ay-cap pos" style="left:calc(50% + ' + (len + 1).toFixed(2) + 'px)">&rsaquo;</span>'
-                : '') +
-            '</span>' +
-            '<span class="ay-num ' + cls + '" style="' + place + '">' + pctTxt(v * 100) + '</span>';
-        }
-        cols += '<span class="ay-col">' + body + '</span>';
+        var v = ayYoy(c, i);
+        // no measurable change -> —; a flat year -> neutral grey, never red
+        var cls = (v === null) ? 'na' : (v === 0 ? 'zero' : (v > 0 ? 'pos' : 'neg'));
+        cells += '<span class="ay-col"><span class="ay-num ' + cls + '">' +
+          (v === null ? '&mdash;' : pctTxt(v * 100)) + '</span></span>';
       }
       var na = (r.t === null || r.t === undefined);
       html += '<div class="ay-row" data-tip="' + esc(ayTip(c)) + '">' +
         '<span class="ay-label">' + esc(c.name) + '</span>' +
-        '<span class="ay-cols">' + cols + '</span>' +
+        '<span class="ay-cols">' + cells + '</span>' +
         '<span class="an-val' + (na ? ' na' : '') + '">' + amt(r.t) + '</span>' +
         '</div>';
     });
     container.innerHTML = html;
   }
 
-  // one of the two amount tables; both share the same row order
+  // one of the two amount tables; both share the same row ORDER (2025 total desc).
+  // A company whose five years are all unavailable in this table is dropped from it —
+  // e.g. Baidu / Kuaishou / Amazon / Trip.com pay no dividend, TSMC does not repurchase.
   function renderAnnualTable(container, key, yoyKey) {
-    var rows = anRows();
+    var rows = anRows().filter(function (r) {
+      var a = r.c[key] || [];
+      for (var i = 0; i < a.length; i++) { if (a[i] !== null && a[i] !== undefined) return true; }
+      return false;
+    });
     var html = '<thead><tr><th>Company</th>';
     AN_YEARS.forEach(function (y) { html += '<th class="num">' + y + '</th>'; });
     html += '<th class="num">2025 YoY</th></tr></thead><tbody>';

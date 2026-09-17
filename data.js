@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-17T11:16:35+08:00",
+  "generatedAt": "2026-09-17T11:36:25+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -1178,7 +1178,7 @@ window.GP_DATA = {
       "0.0 is how this workbook expresses ‘no amount recorded for that year’: many of the source cells inherit a blank ‘Quarterly input’ cell and therefore resolve to zero. It is displayed exactly as it stands — not reclassified, not zero-filled by the exporter — and it is distinct from —, which means no value exists at all.",
       "On the growth card, −100% means the year total fell to zero (prior year positive). It is never inferred from a blank cell, which yields — instead, and it is recomputed from the two year totals rather than read from the sheet’s cached YoY block. Where the zero is an inherited blank, read it as ‘nothing recorded’ rather than a confirmed cut to nil. Latest cases: Weibo 2023, Autohome 2024, Trip.com 2025, Electronic Arts 2025.",
       "* Broadcom fiscal year differs (Feb–Jan); its 2025 column is FY2025 (Feb 2025 – Jan 2026).",
-      "Companies with no value in a given year are shown as — in the tables but still occupy their row (nothing is silently dropped).",
+      "In each table, a company with no value in any of the five years is left out rather than shown as a row of dashes; on the growth card, a company with no measurable year-over-year change is left out. Nothing is zero-filled, and nothing has been changed in the workbook itself.",
       "Source: workbook sheet ‘Annual distributions’ (dividends C:G, share repurchases J:N)."
     ]
   }
