@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-09-21T11:08:49+08:00",
+  "generatedAt": "2026-09-21T12:00:32+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -1172,13 +1172,20 @@ window.GP_DATA = {
         "avail2025": true
       }
     ],
+    "excluded": [
+      "Weibo",
+      "Autohome",
+      "Electronic Arts",
+      "Trip.com",
+      "Amazon"
+    ],
     "footnotes": [
       "USD bn, calendar years 2021–2025. Cash actually paid during the year (dividends paid; share repurchases on a cash-flow basis) — not amounts declared.",
       "— = source cell unavailable. These are known open items whose source cells currently carry a broken Excel reference and are pending re-point to ‘Quarterly input’: IBM / AT&T / Texas Instruments dividends, and Adobe / Salesforce / Texas Instruments repurchases. Displayed as unavailable — not modified, not zero-filled.",
       "0.0 is how this workbook expresses ‘no amount recorded for that year’: many of the source cells inherit a blank ‘Quarterly input’ cell and therefore resolve to zero. It is displayed exactly as it stands — not reclassified, not zero-filled by the exporter — and it is distinct from —, which means no value exists at all.",
       "On the growth card, −100% means the year total fell to zero (prior year positive). It is never inferred from a blank cell, which yields — instead, and it is recomputed from the two year totals rather than read from the sheet’s cached YoY block. Where the zero is an inherited blank, read it as ‘nothing recorded’ rather than a confirmed cut to nil. Latest cases: Weibo 2023, Autohome 2024, Trip.com 2025, Electronic Arts 2025.",
       "* Broadcom fiscal year differs (Feb–Jan); its 2025 column is FY2025 (Feb 2025 – Jan 2026).",
-      "In each table, a company with no value in any of the five years is left out rather than shown as a row of dashes; on the growth card, a company with no measurable year-over-year change is left out. Nothing is zero-filled, and nothing has been changed in the workbook itself.",
+      "In each table, a company with no value in any of the five years is left out rather than shown as a row of dashes; on the growth card, a company with no measurable year-over-year change is left out. A few companies whose distributions are immaterial across the whole period are also omitted from this tab. Nothing is zero-filled, and nothing has been changed in the workbook itself.",
       "Source: workbook sheet ‘Annual distributions’ (dividends C:G, share repurchases J:N)."
     ]
   }

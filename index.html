@@ -714,8 +714,13 @@
     if (b.t !== a.t) return b.t - a.t;
     return anCmpName(a.c.name, b.c.name);
   }
+  // companies omitted from this whole tab by the exporter (see export_web_json.py
+  // ANNUAL_EXCLUDED); presentation only -- the figures remain in data.js
+  var AN_EXCLUDED = (D.annual && D.annual.excluded) ? D.annual.excluded : [];
+  function anExcluded(c) { return AN_EXCLUDED.indexOf(c.name) >= 0; }
   function anRows() {
-    return AN_COS.map(function (c) { return { c: c, t: anTotal2025(c) }; }).sort(anCmpTotal);
+    return AN_COS.filter(function (c) { return !anExcluded(c); })
+      .map(function (c) { return { c: c, t: anTotal2025(c) }; }).sort(anCmpTotal);
   }
   function anNiceMax(m) {
     m = Math.max(m, 0.001);
