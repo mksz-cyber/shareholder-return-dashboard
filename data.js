@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-10-20T11:04:29+08:00",
+  "generatedAt": "2026-10-21T11:27:00+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -228,11 +228,11 @@ window.GP_DATA = {
       "fx": 1.0,
       "authorizedLocal": 55.0,
       "authorized": 55.0,
-      "used": 27.1,
-      "remaining": 27.9,
-      "usedPct": 49.3,
+      "used": 31.836,
+      "remaining": 23.164,
+      "usedPct": 57.9,
       "until": "No expiry date",
-      "asOf": "Jul-26"
+      "asOf": "Oct-26"
     },
     {
       "label": "Alibaba",
