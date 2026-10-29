@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-10-28T11:06:05+08:00",
+  "generatedAt": "2026-10-29T11:51:21+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -216,11 +216,11 @@ window.GP_DATA = {
       "fx": 1.0,
       "authorizedLocal": 60.0,
       "authorized": 60.0,
-      "used": 19.4,
-      "remaining": 40.6,
-      "usedPct": 32.3,
+      "used": 23.779,
+      "remaining": 36.221,
+      "usedPct": 39.6,
       "until": "No expiry date",
-      "asOf": "Jul-26"
+      "asOf": "Oct-26"
     },
     {
       "label": "Netflix",
