@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-10-29T11:51:21+08:00",
+  "generatedAt": "2026-10-29T15:47:57+08:00",
   "quarterLabel": "2Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -184,7 +184,7 @@ window.GP_DATA = {
       "remaining": 69.5,
       "usedPct": 66.9,
       "until": "No expiry date",
-      "asOf": "Jul-26"
+      "asOf": "Oct-26"
     },
     {
       "label": "Apple",
@@ -208,7 +208,7 @@ window.GP_DATA = {
       "remaining": 25.03,
       "usedPct": 83.2,
       "until": "No expiry date",
-      "asOf": "Jul-26"
+      "asOf": "Oct-26"
     },
     {
       "label": "Microsoft",
