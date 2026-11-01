@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Global Peers · Shareholder Return — Q2 2026</title>
+<title>Global Peers · Shareholder Return — Q3 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -327,18 +327,18 @@
   </div>
   <div class="charts">
     <div class="card">
-      <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
+      <h3>YoY — 3Q 2026 vs 3Q 2025</h3>
       <div class="hint">Total shareholder return, % year over year</div>
-      <div class="hc" data-metric="yoy" data-cur="q2" data-prior="q2_prior" data-prior-label="2Q 2025"></div>
+      <div class="hc" data-metric="yoy" data-cur="cur" data-prior="prior_year" data-prior-label="3Q 2025"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
       </div>
     </div>
     <div class="card">
-      <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
+      <h3>QoQ — 3Q 2026 vs 2Q 2026</h3>
       <div class="hint">Total shareholder return, % quarter over quarter</div>
-      <div class="hc" data-metric="qoq" data-cur="q2" data-prior="q1_prior" data-prior-label="1Q 2026"></div>
+      <div class="hc" data-metric="qoq" data-cur="cur" data-prior="prior_qtr" data-prior-label="2Q 2026"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -353,18 +353,18 @@
   </div>
   <div class="charts">
     <div class="card">
-      <h3>YoY — 2Q 2026 vs 2Q 2025</h3>
+      <h3>YoY — 3Q 2026 vs 3Q 2025</h3>
       <div class="hint">Share repurchases, % year over year</div>
-      <div class="hc" data-metric="bb_yoy" data-cur="bb_q2" data-prior="bb_q2_prior" data-prior-label="2Q 2025"></div>
+      <div class="hc" data-metric="bb_yoy" data-cur="bb_cur" data-prior="bb_prior_year" data-prior-label="3Q 2025"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
       </div>
     </div>
     <div class="card">
-      <h3>QoQ — 2Q 2026 vs 1Q 2026</h3>
+      <h3>QoQ — 3Q 2026 vs 2Q 2026</h3>
       <div class="hint">Share repurchases, % quarter over quarter</div>
-      <div class="hc" data-metric="bb_qoq" data-cur="bb_q2" data-prior="bb_q1_prior" data-prior-label="1Q 2026"></div>
+      <div class="hc" data-metric="bb_qoq" data-cur="bb_cur" data-prior="bb_prior_qtr" data-prior-label="2Q 2026"></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--up)"></i> Increase</span>
         <span><i class="swatch" style="background:var(--down)"></i> Decrease</span>
@@ -375,7 +375,7 @@
   <div class="section-title">
     <div class="eyebrow">Amounts</div>
     <h2>Quarterly amounts</h2>
-    <p>Shareholder return and share repurchase amounts (USD bn) for 2Q 2026 versus 2Q 2025, sorted by year-over-year change.</p>
+    <p>Shareholder return and share repurchase amounts (USD bn) for 3Q 2026 versus 3Q 2025, sorted by year-over-year change.</p>
   </div>
   <div class="charts">
     <div class="card">
@@ -393,7 +393,7 @@
   <div class="section-title">
     <div class="eyebrow">Amounts — quarter over quarter</div>
     <h2>Quarterly amounts — QoQ</h2>
-    <p>Shareholder return and share repurchase amounts (USD bn) for 2Q 2026 versus 1Q 2026, sorted by quarter-over-quarter change.</p>
+    <p>Shareholder return and share repurchase amounts (USD bn) for 3Q 2026 versus 2Q 2026, sorted by quarter-over-quarter change.</p>
   </div>
   <div class="charts">
     <div class="card">
@@ -566,7 +566,7 @@
         bar = '<span class="hc-bar ' + side + '" style="width:' + w.toFixed(3) + '%"></span>';
       }
       var tip = '<b>' + esc(r.label) + '</b>' +
-        '<span class="tiprow"><span class="lbl">2Q 2026</span>' + usd(r.cur) + '</span>' +
+        '<span class="tiprow"><span class="lbl">' + esc(D.quarterLabel) + '</span>' + usd(r.cur) + '</span>' +
         '<span class="tiprow"><span class="lbl">' + esc(priorLabel) + '</span>' + usd(r.prior) + '</span>';
       html += '<div class="hc-row" data-tip="' + esc(tip) + '">' +
         '<span class="hc-label">' + esc(r.label) + '</span>' +
@@ -844,10 +844,10 @@
     renderHChart(el, el.getAttribute('data-metric'), el.getAttribute('data-cur'), el.getAttribute('data-prior'), el.getAttribute('data-prior-label'));
   }
 
-  renderAmountTable(document.getElementById('totalTable'), 'q2', 'q2_prior', 'yoy', '2Q 2026', '2Q 2025', 'YoY');
-  renderAmountTable(document.getElementById('bbTable'), 'bb_q2', 'bb_q2_prior', 'bb_yoy', '2Q 2026', '2Q 2025', 'YoY');
-  renderAmountTable(document.getElementById('totalTableQoq'), 'q2', 'q1_prior', 'qoq', '2Q 2026', '1Q 2026', 'QoQ');
-  renderAmountTable(document.getElementById('bbTableQoq'), 'bb_q2', 'bb_q1_prior', 'bb_qoq', '2Q 2026', '1Q 2026', 'QoQ');
+  renderAmountTable(document.getElementById('totalTable'), 'cur', 'prior_year', 'yoy', '3Q 2026', '3Q 2025', 'YoY');
+  renderAmountTable(document.getElementById('bbTable'), 'bb_cur', 'bb_prior_year', 'bb_yoy', '3Q 2026', '3Q 2025', 'YoY');
+  renderAmountTable(document.getElementById('totalTableQoq'), 'cur', 'prior_qtr', 'qoq', '3Q 2026', '2Q 2026', 'QoQ');
+  renderAmountTable(document.getElementById('bbTableQoq'), 'bb_cur', 'bb_prior_qtr', 'bb_qoq', '3Q 2026', '2Q 2026', 'QoQ');
 
   renderAuthChart(document.getElementById('authPlot'));
   renderAuthTable(document.getElementById('authTable'));
