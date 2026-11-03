@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-11-02T11:03:46+08:00",
+  "generatedAt": "2026-11-03T11:32:46+08:00",
   "quarterLabel": "3Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -15,6 +15,19 @@ window.GP_DATA = {
       "bb_cur": 4.8,
       "bb_prior_year": 1.857,
       "bb_prior_qtr": 4.7
+    },
+    {
+      "label": "Apple",
+      "yoy": 17.7,
+      "qoq": -5.2,
+      "cur": 28.239,
+      "prior_year": 23.989,
+      "prior_qtr": 29.8,
+      "bb_yoy": 20.7,
+      "bb_qoq": -5.8,
+      "bb_cur": 24.296,
+      "bb_prior_year": 20.132,
+      "bb_prior_qtr": 25.8
     },
     {
       "label": "Microsoft",
@@ -93,19 +106,6 @@ window.GP_DATA = {
       "bb_cur": null,
       "bb_prior_year": 0.02,
       "bb_prior_qtr": 0.113
-    },
-    {
-      "label": "Apple",
-      "yoy": null,
-      "qoq": null,
-      "cur": null,
-      "prior_year": 23.989,
-      "prior_qtr": 29.8,
-      "bb_yoy": null,
-      "bb_qoq": null,
-      "bb_cur": null,
-      "bb_prior_year": 20.132,
-      "bb_prior_qtr": 25.8
     },
     {
       "label": "Sony",
@@ -228,9 +228,9 @@ window.GP_DATA = {
       "fx": 1.0,
       "authorizedLocal": 55.0,
       "authorized": 55.0,
-      "used": 31.836,
-      "remaining": 23.164,
-      "usedPct": 57.9,
+      "used": 32.836,
+      "remaining": 22.164,
+      "usedPct": 59.7,
       "until": "No expiry date",
       "asOf": "Oct-26"
     },
