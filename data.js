@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-11-03T11:32:46+08:00",
+  "generatedAt": "2026-11-03T17:25:26+08:00",
   "quarterLabel": "3Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -192,11 +192,11 @@ window.GP_DATA = {
       "fx": 1.0,
       "authorizedLocal": 200.0,
       "authorized": 200.0,
-      "used": 62.0,
-      "remaining": 138.0,
-      "usedPct": 31.0,
+      "used": 85.797,
+      "remaining": 114.203,
+      "usedPct": 42.9,
       "until": "No expiry date",
-      "asOf": "Aug-26"
+      "asOf": "Nov-26"
     },
     {
       "label": "Meta",
