@@ -1,5 +1,5 @@
 window.GP_DATA = {
-  "generatedAt": "2026-11-19T11:04:56+08:00",
+  "generatedAt": "2026-11-20T11:23:49+08:00",
   "quarterLabel": "3Q 2026",
   "metric": "Total shareholder return (dividends + repurchases)",
   "companies": [
@@ -43,6 +43,19 @@ window.GP_DATA = {
       "bb_prior_qtr": 4.579
     },
     {
+      "label": "NetEase",
+      "yoy": -14.3,
+      "qoq": -52.5,
+      "cur": 0.311,
+      "prior_year": 0.363,
+      "prior_qtr": 0.655,
+      "bb_yoy": null,
+      "bb_qoq": -100.0,
+      "bb_cur": 0.0,
+      "bb_prior_year": 0.0,
+      "bb_prior_qtr": 0.192
+    },
+    {
       "label": "Alibaba",
       "yoy": -44.0,
       "qoq": 1574.7,
@@ -80,19 +93,6 @@ window.GP_DATA = {
       "bb_cur": 0.0,
       "bb_prior_year": 11.553,
       "bb_prior_qtr": 0.0
-    },
-    {
-      "label": "NetEase",
-      "yoy": null,
-      "qoq": null,
-      "cur": null,
-      "prior_year": 0.363,
-      "prior_qtr": 0.655,
-      "bb_yoy": null,
-      "bb_qoq": null,
-      "bb_cur": null,
-      "bb_prior_year": 0.0,
-      "bb_prior_qtr": 0.192
     },
     {
       "label": "Kuaishou",
@@ -292,7 +292,7 @@ window.GP_DATA = {
       "remaining": 2.7,
       "usedPct": 46.0,
       "until": "Jan-29",
-      "asOf": "Aug-26"
+      "asOf": "Nov-26"
     },
     {
       "label": "Baidu",
